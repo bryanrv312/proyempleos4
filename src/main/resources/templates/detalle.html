@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Detalle de la Vacante</title>
+</head>
+
+
+	<body>
+	
+	
+		<h1>Detalle de la oferta de Trabajo</h1>
+		<h3 th:text="'Nombre: ' + ${vacante.nombre}"></h3>
+		<h3 th:text="'Fecha de publicacion: ' + ${vacante.fecha}"></h3>
+		<h3 th:text="'Salario Ofrecido: ' + ${vacante.salario}"></h3>
+		<h3 th:text="'Descripcion: ' + ${vacante.descripcion}"></h3>
+	
+	</body>
+
+
+</html>

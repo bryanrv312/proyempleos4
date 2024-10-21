@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>EmpleosApp | Detalles de la Oferta de Trabajo</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header th:insert="~{fragments/menu :: menu-principal}">
+		
+	</header>
+
+    <main role="main">
+      <hr>
+      <div class="container"> 
+
+        <div class="row">
+          <div class="col-md-3">            
+            <img class="rounded mx-auto d-block" th:src="@{/logos/{imgTemp} (imgTemp=${vacanteDetalle.imagen})}" alt="Generic placeholder image" width="220" height="220">            
+          </div>
+          <div class="col-md-9">
+            <div class="card">
+              <h4 class="card-header">Aplicar para <strong  th:text="${vacanteDetalle.nombre}"></strong></h4>              
+              <div class="card-body">
+              
+              	<div class="alert alert-danger" role="alert" sec:authorize="isAnonymous()">
+              		¿Te interesa esta vacante? <strong>Regístrate</strong> y después ingresa para enviar tu CV.
+              	</div>
+              
+                <h5 class="card-title"><strong>Categoría: </strong> <span th:text="${vacanteDetalle.categoria.nombre}">Nombre la categoría</span></h5>
+                <h6 class="card-title"><strong>Publicado: </strong> <span th:text="${vacanteDetalle.fecha}"></span></h6>                
+                <h6 class="card-title"><strong>Salario Ofrecido: </strong><span th:text="${vacanteDetalle.salario}"></span></h6>
+                <p class="card-text" th:text="${vacanteDetalle.descripcion}">La descripción corta de la oferta de trabajo</p>
+                
+                <div class="card bg-light mb-3" >
+                  <div class="card-body">
+                    <h5 class="card-title">Detalles de la oferta de trabajo</h5>
+                    <p th:utext="${vacanteDetalle.detalles}" class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  </div>
+                </div>
+<!--             El boton aparecera solo para usuarios autenticados y que tengan rol USUARIO     -->
+                <a sec:authorize="isAuthenticated() and hasAnyAuthority('USUARIO')" class="btn btn-primary" th:href="@{/solicitudes/create/{id} (id=${vacanteDetalle.id})}" role="button" title="Quiero aplicar para esta oferta de trabajo."><i class="fas fa-file" aria-hidden="true"></i> Aplicar</a>                            
+              </div>
+            </div>  
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
+		
+	</footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+  </body>
+</html>

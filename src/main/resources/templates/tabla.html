@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Listado de Vacantes</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+</head>
+
+
+
+	<body>
+		
+		<h1 style="padding-top: 20px; padding-bottom: 30px" class="text-light border text-center bg-dark">Listado de Vacantes</h1>
+		<img th:src="@{/images/logo.png}" width="136" beight="136">
+		
+		<div class="container-fluid">
+		<br>
+	
+			<br>
+			
+			<div class="container-lg ">
+				<!-- style="width: 100; border: 2" -->
+				<table class="table align-middle table-success table-striped table-bordered table-hover " >
+					<thead class="table-dark">
+					    <tr>
+					    	<th>Logo</th>
+					        <th>Id</th>
+					        <th>Nombre</th>
+					        <th>Fecha de Publicacion</th>
+					        <th>Salario Ofrecido</th>
+					        <th>Descripcion</th>
+					        <th>Destacado</th>
+					        <th>Detalle</th>
+					        <th>Borrar</th>
+					    </tr>
+				    </thead>
+				    <tbody>
+					    <tr th:each="tmpVac : ${vacantesLista}">
+					    	<td> 
+					    		<img th:src="@{/images/{tmpImg} (tmpImg=${tmpVac.imagen}) }" width="100" beight="100">
+					    	</td>
+					        <td th:text="${tmpVac.id}">10:30</td>
+					        <td th:text="${tmpVac.nombre}">Matemáticas</td>
+					        <td th:text="${tmpVac.fecha}">Geografía</td>
+					        <td th:text="${tmpVac.salario}">Geografía</td>
+					        <td th:text="${tmpVac.descripcion}">Física</td>
+					        <!--  
+					        <td th:text="${tmpVac.destacado}"></td>
+					        -->
+					        <!--  <td th:text="${tmpVac.destacado == 1 ? 'Si' : 'No'}"></td>  -->
+					        
+					        <td>
+					        	<span th:if="${tmpVac.destacado == 1}" class="badge bg-primary">Si</span>
+					        	<span th:unless="${tmpVac.destacado == 1}" class="badge bg-danger">No</span>
+					        </td>
+					        <td>
+					        	<a th:href="@{/vacantes/view/{id} (id=${tmpVac.id}) }" class="btn btn-success">Detalle</a>
+					        </td>
+					        <td>
+					        	<a th:href="@{vacantes/delete(id=${tmpVac.id}) }" class="btn btn-danger">Borrar</a>
+					        </td>
+					        
+					    </tr>
+				    </tbody>
+				</table>
+				
+			</div>
+		</div>
+		
+		<link src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js">
+	</body>
+
+
+
+</html>
