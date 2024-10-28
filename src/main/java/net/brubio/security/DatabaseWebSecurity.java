@@ -92,7 +92,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.requestMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR") 
 			.requestMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
 			.anyRequest().authenticated()
-			.and().formLogin().loginPage("/login").permitAll(); //.loginPage("/login") -> utilizare mi propio form login
+			.and().formLogin().loginPage("/login").failureUrl("/login?error=true") .permitAll(); //.loginPage("/login") -> utilizare mi propio form login
 		
 		return http.build();
 	}
