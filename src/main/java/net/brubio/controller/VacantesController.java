@@ -105,7 +105,8 @@ public class VacantesController {
 		
 		if (!multiPart.isEmpty()) {
 			//String ruta = "c:/empleos/img-vacantes/";
-			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			//String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			String nombreImagen = Utileria.guardarArchivo2(multiPart);
 			if (nombreImagen != null) { // La imagen si se subio
 				vacante.setImagen(nombreImagen);
 			}
@@ -130,7 +131,7 @@ public class VacantesController {
 		System.out.println("Borrando vacante con id: " + idVacante);
 		serviceVacantes.eliminar(idVacante);
 		attributes.addFlashAttribute("msg", "La vacante fue Eliminada !!!");
-		return "redirect:/vacantes/index";
+		return "redirect:/vacantes/indexPaginate";
 	}
 	
 	@GetMapping("/edit/{id}")

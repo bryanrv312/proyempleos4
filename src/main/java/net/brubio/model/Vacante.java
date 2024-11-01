@@ -27,7 +27,7 @@ public class Vacante {
 	private Date fecha;
 	private Double salario;
 	private Integer destacado;
-	private String imagen = "no-image.png";
+	private String imagen = "https://res.cloudinary.com/dm8onz5th/image/upload/v1730412339/no-image_nwoulr.png";//"no-image.png";
 	private String estatus;
 	private String detalles;
 	

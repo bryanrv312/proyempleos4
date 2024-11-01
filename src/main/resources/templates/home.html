@@ -86,8 +86,9 @@
     <div class="row">
         <div th:each="vacante : ${vacantesLista}" class="col-md-4 mb-4">
             <div class="card h-100"> <!-- Establecer una altura fija para cada tarjeta -->
-                <img class="card-img-top img-fluid" th:src="@{/logos/{imgTemp} (imgTemp=${vacante.imagen})}"
-                    alt="Imagen de Vacante" >
+<!--            <img class="card-img-top img-fluid" th:src="@{/logos/{imgTemp} (imgTemp=${vacante.imagen})}" alt="Imagen de Vacante" >-->
+                <img class="card-img-top img-fluid" th:src="${vacante.imagen}" alt="Imagen de Vacante" >
+
                 <div class="card-body">
                     <h5 class="card-title" th:text="${vacante.nombre}"></h5>
                     <p class="card-text font-weight-bold">
