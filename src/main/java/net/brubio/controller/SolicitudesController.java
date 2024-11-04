@@ -78,7 +78,8 @@ public class SolicitudesController {
 		}
 		
 		if(!multipart.isEmpty()) {
-			String nombreArchivo = Utileria.guardarArchivo(multipart, rutaCv);
+			//String nombreArchivo = Utileria.guardarArchivo(multipart, rutaCv);
+			String nombreArchivo = Utileria.guardarArchivo2(multipart);
 			if(nombreArchivo != null) {
 				solicitud.setArchivo(nombreArchivo);
 			}
@@ -113,7 +114,7 @@ public class SolicitudesController {
 		
 		message.setTo(solicitud.getUsuario().getEmail());
 		message.setSubject("Recepcion de CV");
-		message.setText("PaPularrix buendia aureliano aceptaste acudite terminaste");
+		message.setText("Tu hoja de vida esta siendo evaluada");
 		
 		try {
 			javaMailSender.send(message);
