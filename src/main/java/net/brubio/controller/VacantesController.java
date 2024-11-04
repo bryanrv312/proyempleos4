@@ -34,7 +34,7 @@ public class VacantesController {
 	
   //@Value("${jobsapp.ruta.imagenes}")
 	@Value("${jobsapp.path.imgs}")
-	private String ruta;                   //    -->   VERIFICAR ESTOOOOOOOOOOOO (NO OLVIDAIS) (SOLUCIONADO)
+	private String ruta;                   //    -->   VERIFICAR ESTO(SOLUCIONADO)
 
 	@Autowired
 	private IVacantesService serviceVacantes;
