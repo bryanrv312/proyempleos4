@@ -61,6 +61,13 @@
                                
               </tbody>
             </table>
+
+              <nav th:if="${listaSolicitudes.totalPages > 0}" aria-label="Page navigation example" >
+                  <ul class="pagination">
+                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a></li>
+                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a></li>
+                  </ul>
+              </nav>
             
           </div>
         </div>

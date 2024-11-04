@@ -2,8 +2,11 @@ package net.brubio.controller;
 
 import java.util.List;
 
+import net.brubio.model.Vacante;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -27,6 +30,13 @@ public class UsuariosController {
 	@GetMapping("/index")
 	public String mostrarIndex(Model model) {
 		List<Usuario> lista = serviceUsuarios.buscarTodos();
+		model.addAttribute("listaUsuarios", lista);
+		return "usuarios/listUsuarios";
+	}
+
+	@GetMapping("/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+		Page<Usuario> lista = serviceUsuarios.buscarTodas(page);
 		model.addAttribute("listaUsuarios", lista);
 		return "usuarios/listUsuarios";
 	}
