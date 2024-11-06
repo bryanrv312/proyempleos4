@@ -55,4 +55,9 @@ public class UsuariosServiceJpa implements IUsuariosService {
 		return usuarioRepo.findAll(page);
 	}
 
+	@Override
+	public Usuario buscarUsuarioPorToken(String token) {
+		return usuarioRepo.findByToken(token);
+	}
+
 }
