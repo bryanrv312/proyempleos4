@@ -199,8 +199,8 @@ public class HomeController {
 	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) {
 		String token = UUID.randomUUID().toString();
 		usuario.setToken(token);
-		//String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
-		String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
+		String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
+		//String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
 
 
 		String pwdplano = usuario.getPassword();
