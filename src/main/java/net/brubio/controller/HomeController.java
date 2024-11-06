@@ -5,12 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,12 +21,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,6 +49,9 @@ public class HomeController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private JavaMailSender javaMailSender;
 	
 	
 	@GetMapping("/tabla")
@@ -164,7 +165,7 @@ public class HomeController {
 	@GetMapping("/index")
 	public String mostrarIndex(Authentication auth, HttpSession session) {// auth->verify user and pass
 		String username = auth.getName();//recover user name
-		System.out.println("Nombre del usuario: " + username);
+		System.err.println("Nombre del usuario: " + username);
 		
 		for(GrantedAuthority rol:auth.getAuthorities()) {
 			System.out.println("Rol: " + rol.getAuthority());
@@ -179,6 +180,14 @@ public class HomeController {
 		
 		return "redirect:/";
 	}
+
+	/*public String generarYAsignarToken(Usuario usuario) {
+		// Generar el token
+		String token = UUID.randomUUID().toString();
+		usuario.setToken(token);
+		serviceUsuarios.guardar(usuario);
+		return token;
+	}*/
 	
 	@GetMapping("/signup")
 	//public String crear(Usuario usuario) {
@@ -188,23 +197,69 @@ public class HomeController {
 	
 	@PostMapping("/signup")
 	public String guardarRegistro(Usuario usuario, RedirectAttributes attributes) {
-		
+		String token = UUID.randomUUID().toString();
+		usuario.setToken(token);
+		//String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
+		String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
+
+
 		String pwdplano = usuario.getPassword();
 		String pwdEncriptado = passwordEncoder.encode(pwdplano);
 		usuario.setPassword(pwdEncriptado);
 		
 		usuario.setFechaRegistro(new Date());
-		usuario.setEstatus(1);
+		usuario.setEstatus(0);
+		usuario.setConfirmado(false);
 		
 		Perfil perfil = new Perfil();
 		perfil.setId(3);		
 		usuario.agregar(perfil);
-		
+
 		serviceUsuarios.guardar(usuario);
-		attributes.addFlashAttribute("msg", "Registro Guardado");
+
+		String subject = "Confirmación de registro";
+		String message = "Haz clic en el siguiente enlace para confirmar tu registro: " + confirmacionLink;
+		SimpleMailMessage email = new SimpleMailMessage();
+		email.setTo(usuario.getEmail());
+		email.setSubject(subject);
+		email.setText(message);
+		javaMailSender.send(email);
+
+		System.err.println("/registrarUsuario - USUARIO POR CONFIRMAR - SE ENVIO EMAIL!!!");
+		attributes.addFlashAttribute("msg", "Se envio un mensaje de confirmación a su correo");
+
+		return "redirect:/login";
+		/*attributes.addFlashAttribute("msg", "Registro Guardado");
 		System.out.println("Usuario: " + usuario);
-		return "redirect:/usuarios/index"; 
+		return "redirect:/usuarios/index"; */
 	}
+	//Confirm email
+	@GetMapping("/confirmar-registro")
+	public String confirmarRegistro(@RequestParam("token") String token, Model model, RedirectAttributes attributes) {
+		System.out.println("- token recibido: " + token);
+
+		//Verifica si el token es válido
+		Usuario usuario = serviceUsuarios.buscarUsuarioPorToken(token);
+		System.err.println("-usuario del token: " + usuario.getNombre());
+
+		if (usuario != null && usuario.getEstatus() == 0) {
+			System.err.println("entro pa");
+			usuario.setEstatus(1);
+			//usuario.setConfirmado(true); // actualizara a 1 la confirmacion en la bd
+			serviceUsuarios.guardar(usuario);
+			System.err.println("/confirmar_email - confirmacion_exitosa");
+
+			//model.addAttribute("msg", "Correo confirmado, Ingrese sus credenciales");
+			attributes.addFlashAttribute("msg", "Correo confirmado, Ingrese sus credenciales");
+			return "redirect:/login";
+		}
+
+		System.err.println("/confirmar_email - confirmacion_errone");
+		attributes.addFlashAttribute("msg", "Error en la confirmación de su correo");
+		return "redirect:/";
+	}
+
+
 	
 	//Responde a la peticion get del form en la busqueda
 	//recibimos los daotos capturados del form busqueda

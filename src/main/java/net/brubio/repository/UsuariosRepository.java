@@ -8,4 +8,6 @@ public interface UsuariosRepository extends JpaRepository<Usuario, Integer> {
 	
 	Usuario findByUsername(String username);
 
+	Usuario findByToken(String token);
+
 }

@@ -4,16 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 
 
 @Entity
@@ -37,6 +28,9 @@ public class Usuario {
 			joinColumns = @JoinColumn(name = "idUsuario"),
 			inverseJoinColumns = @JoinColumn(name = "idPerfil")) 
 	private List<Perfil> perfiles; //Un usuario va a tener MUCHOS perfiles
+
+	private String token;
+	private boolean confirmado = true;
 	
 	//Metodo Helper que ayude agregar perfiles a la lista
 	public void agregar(Perfil tempPerfil) {
@@ -113,16 +107,35 @@ public class Usuario {
 		this.perfiles = perfiles;
 	}
 
+	public String getToken() {
+		return token;
+	}
 
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public boolean isConfirmado() {
+		return confirmado;
+	}
+
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
+	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", username=" + username + ", nombre=" + nombre + ", email=" + email
-				+ ", password=" + password + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + ", perfiles="
-				+ perfiles + "]";
+		return "Usuario{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", nombre='" + nombre + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", estatus=" + estatus +
+				", fechaRegistro=" + fechaRegistro +
+				", perfiles=" + perfiles +
+				", token='" + token + '\'' +
+				", confirmado=" + confirmado +
+				'}';
 	}
-	
-	
-	
-	
 }

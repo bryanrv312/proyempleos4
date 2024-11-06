@@ -46,7 +46,7 @@ public class UsuariosController {
 		System.out.println("Borrando usuario con id: " + idUsuario);
 		serviceUsuarios.eliminar(idUsuario);
 		attributes.addFlashAttribute("msg", "El Usuario fue Eliminado !!!");
-		return "redirect:/usuarios/index";
+		return "redirect:/usuarios/indexPaginate";
 	}
 	
 	
@@ -57,7 +57,7 @@ public class UsuariosController {
 		usuario.setEstatus(0);
 		serviceUsuarios.guardar(usuario);
 		attributes.addFlashAttribute("msg", "El Usuario fue Bloqueado !!!");
-		return "redirect:/usuarios/index";
+		return "redirect:/usuarios/indexPaginate";
 	}
 	
 	
@@ -68,7 +68,7 @@ public class UsuariosController {
 		usuario.setEstatus(1);
 		serviceUsuarios.guardar(usuario);
 		attributes.addFlashAttribute("msg", "El Usuario fue Desbloqueado !!!");
-		return "redirect:/usuarios/index";
+		return "redirect:/usuarios/indexPaginate";
 	}
 	
 	/*

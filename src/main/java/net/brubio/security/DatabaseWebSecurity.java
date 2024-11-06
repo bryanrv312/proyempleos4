@@ -1,6 +1,9 @@
 package net.brubio.security;
 
 import javax.sql.DataSource;
+
+import net.brubio.model.Usuario;
+import net.brubio.service.IUsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 
 @Configuration
@@ -31,6 +35,9 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	
 	/*@Autowired
 	private DataSource dataSource;*/
+
+	@Autowired
+	private IUsuariosService serviceUsuarios;
 	
 	@Bean	
 	protected UserDetailsManager usersCustom(DataSource dataSource) {
@@ -83,6 +90,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 		http.authorizeHttpRequests()
 			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**").permitAll()
 			.requestMatchers("/", "/signup", "/search","/bcrypt/**", "/vacantes/view/**").permitAll()
+			.requestMatchers("/login", "/confirmar-registro").permitAll()//para que funcione el AuthenticationFailureHandler
 			
 			// Asignar permisos a URLs por ROLES
 			.requestMatchers("/solicitudes/save/**").hasAnyAuthority("USUARIO")
@@ -92,8 +100,13 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.requestMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR") 
 			.requestMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
 			.anyRequest().authenticated()
-			.and().formLogin().loginPage("/login").failureUrl("/login?error=true") .permitAll(); //.loginPage("/login") -> utilizare mi propio form login
-		
+			//.and().formLogin().loginPage("/login").failureUrl("/login?error=true") .permitAll(); //.loginPage("/login") -> utilizare mi propio form login
+			.and()
+			.formLogin()
+			.loginPage("/login")
+			.failureHandler(customFailureHandler())  // para manejar errores
+			.permitAll();
+
 		return http.build();
 	}
 	
@@ -102,6 +115,22 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	@Bean
 	protected PasswordEncoder passwordEncoder() { 
 	return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public AuthenticationFailureHandler customFailureHandler() {
+		return (request, response, exception) -> {
+			String username = request.getParameter("username");
+			Usuario usuario = serviceUsuarios.buscarPorUsername(username);
+
+			if (usuario != null && usuario.getEstatus() == 0) {
+				System.err.println("Usuario bloqueado");
+				response.sendRedirect("/login?blocked=true");
+			} else {
+				System.err.println("Credenciales incorrectas");
+				response.sendRedirect("/login?error=true");
+			}
+		};
 	}
 
 		

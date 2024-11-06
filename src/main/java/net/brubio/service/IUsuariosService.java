@@ -21,4 +21,6 @@ public interface IUsuariosService {
 
 	Page<Usuario> buscarTodas(Pageable page);
 
+	Usuario buscarUsuarioPorToken(String token);
+
 }
