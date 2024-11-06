@@ -15,6 +15,8 @@ Esta es una aplicación web para la gestión de vacantes de empleo, desarrollada
 - Publicación y gestión de vacantes de empleo.
 - Búsqueda de empleos por categoría y palabras clave.
 - Envío de correos.
+- Verificación de correos con un token único.
+- Bloqueo de usuarios
 - **Almacenamiento de Archivos**: Los usuarios pueden subir imágenes asociadas a vacantes y almacenar CVs en formato PDF y Word de manera segura en **Cloudinary**.
 - **Spring Security** para gestionar la autenticación y autorización de usuarios.
 - Paginación en las vistas.
