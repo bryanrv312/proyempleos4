@@ -3,6 +3,7 @@ package net.brubio.service.db;
 import java.util.List;
 import java.util.Optional;
 
+import net.brubio.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,11 @@ public class SolicitudesServiceJpa implements ISolicitudesService{
 	@Override
 	public Page<Solicitud> buscarTodas(Pageable ppage) {
 		return solicitudesRepo.findAll(ppage);
+	}
+
+	@Override
+	public Page<Solicitud> buscarPorUsuario(Usuario user, Pageable pageable) {
+		return solicitudesRepo.findByUsuario(user,pageable);
 	}
 
 }
