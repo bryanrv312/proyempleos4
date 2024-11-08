@@ -28,6 +28,8 @@ import net.brubio.service.IUsuariosService;
 import net.brubio.service.IVacantesService;
 import net.brubio.util.Utileria;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("solicitudes")
 public class SolicitudesController {
@@ -52,6 +54,42 @@ public class SolicitudesController {
 	public String mostrarIndexPaginado(Pageable pageable, Model model) {
 		Page<Solicitud> lista = serviceSolicitudes.buscarTodas(pageable);
 		model.addAttribute("listaSolicitudes", lista);
+		return "solicitudes/listSolicitudes";
+	}
+
+
+	@GetMapping("/indexPaginate_usuario")
+	public String mostrarIndexPaginado(Pageable pageable, Model model, Principal principal) {
+		String username = principal.getName();
+		Usuario user = serviceUsuarios.buscarPorUsername(username);
+		System.err.println(user);
+
+		Page<Solicitud> lista = serviceSolicitudes.buscarPorUsuario(user, pageable);
+
+		if(lista.isEmpty()) {
+			System.err.println("lista de solicitudes vacia !");
+			model.addAttribute("msg_null", "No hay solicitudes registradas para este usuario");
+		}else {
+			model.addAttribute("listaSolicitudes", lista);
+		}
+
+		/*for (Perfil perfil : user.getPerfiles()) {
+            System.err.println("Perfil ID: " + perfil.getId() + ", Perfil: " + perfil.getPerfil());
+
+            if(perfil.getPerfil().equals("USUARIO")) {
+            	lista = serviceSolicitudes.buscarPorUsuario(user, pageable);
+            }
+            if(perfil.getPerfil().equals("ADMINISTRADOR")) {
+            	lista = serviceSolicitudes.buscarTodas(pageable);
+            }
+            if(perfil.getPerfil().equals("SUPERVISOR") && perfil.getPerfil().equals("ADMINISTRADOR")) {
+            	lista = serviceSolicitudes.buscarTodas(pageable);
+            }
+        } */
+
+		//filtrar las solicitdes segun el rol
+		//Page<Solicitud> lista= serviceSolicitudes.buscarTodas(pageable);
+		//model.addAttribute("listaSolicitudes", lista);
 		return "solicitudes/listSolicitudes";
 	}
 	

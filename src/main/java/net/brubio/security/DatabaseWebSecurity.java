@@ -95,10 +95,11 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			// Asignar permisos a URLs por ROLES
 			.requestMatchers("/solicitudes/save/**").hasAnyAuthority("USUARIO")
 			.requestMatchers("/solicitudes/create/**").hasAnyAuthority("USUARIO")
-			.requestMatchers("/solicitudes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+			.requestMatchers("/solicitudes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR","USUARIO")
 			.requestMatchers("/vacantes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
 			.requestMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR") 
 			.requestMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
+			.requestMatchers("/solicitudes/indexPaginate_usuario/**").hasAnyAuthority("USUARIO")
 			.anyRequest().authenticated()
 			//.and().formLogin().loginPage("/login").failureUrl("/login?error=true") .permitAll(); //.loginPage("/login") -> utilizare mi propio form login
 			.and()

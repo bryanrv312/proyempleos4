@@ -32,6 +32,7 @@
           <div class="card-body">
           
           <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+          <div th:if="${msg_null != null}" class="alert alert-warning" th:text="${msg_null}" role="alert"></div>
           
             <table class="table table-hover">
               <thead class="thead-light">
@@ -52,17 +53,18 @@
                   <td th:text="${solicitud.fecha}"></td>
                   <td>
 <!--                     <a href="#" class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a> -->
-                    <a th:href="@{/solicitudes/delete/{id} (id=${solicitud.id}) }" class="btn btn-success btn-sm confirmar" onclick="return confirm('¿Estas seguro?')" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
-                    <a th:href="@{/solicitudes/sendMail/{id} (id=${solicitud.id}) }" class="btn btn-success btn-sm" role="button" title="Enviar correo electrónico al usuario."><i class="fas fa-envelope" aria-hidden="true"></i></a>
-<!--                    <a th:href="@{/cv/{archivo} (archivo=${solicitud.archivo}) }" target="_blank" class="btn btn-success btn-sm" role="button" title="Descargar Curriculm Vitae."><i class="fas fa-download" aria-hidden="true"></i></a>-->
+                    <a th:href="@{/solicitudes/delete/{id} (id=${solicitud.id}) }" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-success btn-sm confirmar" onclick="return confirm('¿Estas seguro?')" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
+<!--                <a th:href="@{/cv/{archivo} (archivo=${solicitud.archivo}) }" target="_blank" class="btn btn-success btn-sm" role="button" title="Descargar Curriculm Vitae."><i class="fas fa-download" aria-hidden="true"></i></a>-->
                     <a th:href="${solicitud.archivo}" target="_blank" class="btn btn-success btn-sm" role="button" title="Descargar Curriculm Vitae."><i class="fas fa-download" aria-hidden="true"></i></a>
+                    <a th:href="@{/solicitudes/sendMail/{id} (id=${solicitud.id}) }" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-success btn-sm" role="button" title="Enviar correo electrónico al usuario."><i class="fas fa-envelope" aria-hidden="true"></i></a>
+
                   </td>
                 </tr>
                                
               </tbody>
             </table>
 
-              <nav th:if="${listaSolicitudes.totalPages > 0}" aria-label="Page navigation example" >
+              <nav th:if="${listaSolicitudes != null and listaSolicitudes.totalPages > 0}" aria-label="Page navigation example" >
                   <ul class="pagination">
                       <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a></li>
                       <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a></li>
