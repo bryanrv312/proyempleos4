@@ -3,6 +3,7 @@
 Esta es una aplicación web para la gestión de vacantes de empleo, desarrollada con **Spring Boot**, dockerizada y desplegada en **Render**, con una base de datos **MySQL** en **Clever Cloud**. Además, permite la gestión de archivos e imágenes, almacenados de forma segura en **Cloudinary**.
 
 🌐 **URL de la Aplicación**: [https://proyempleos4.onrender.com](https://proyempleos4.onrender.com)
+**testear con usuario ADMINISTRADOR** user:marisol pass:mari123
 
 ## Tecnologías Utilizadas
 - **Spring Boot** - Framework principal v3.1.1 para la creación de la aplicación.
