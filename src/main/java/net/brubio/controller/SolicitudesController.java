@@ -1,5 +1,6 @@
 package net.brubio.controller;
 
+import net.brubio.service.db.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -48,12 +49,16 @@ public class SolicitudesController {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
+
+	@Autowired
+	private S3Service s3Service;
 	
 	
 	@GetMapping("/indexPaginate")
 	public String mostrarIndexPaginado(Pageable pageable, Model model) {
 		Page<Solicitud> lista = serviceSolicitudes.buscarTodas(pageable);
 		model.addAttribute("listaSolicitudes", lista);
+		model.addAttribute("baseUrl", "/solicitudes/indexPaginate");
 		return "solicitudes/listSolicitudes";
 	}
 
@@ -72,6 +77,7 @@ public class SolicitudesController {
 		}else {
 			model.addAttribute("listaSolicitudes", lista);
 		}
+		model.addAttribute("baseUrl", "/solicitudes/indexPaginate_usuario");
 
 		/*for (Perfil perfil : user.getPerfiles()) {
             System.err.println("Perfil ID: " + perfil.getId() + ", Perfil: " + perfil.getPerfil());
@@ -117,7 +123,8 @@ public class SolicitudesController {
 		
 		if(!multipart.isEmpty()) {
 			//String nombreArchivo = Utileria.guardarArchivo(multipart, rutaCv);
-			String nombreArchivo = Utileria.guardarArchivo2(multipart);
+			//String nombreArchivo = Utileria.guardarArchivo2(multipart);
+			String nombreArchivo = s3Service.uploadFileAmazonS3(multipart);
 			if(nombreArchivo != null) {
 				solicitud.setArchivo(nombreArchivo);
 			}
