@@ -64,10 +64,23 @@
               </tbody>
             </table>
 
-              <nav th:if="${listaSolicitudes != null and listaSolicitudes.totalPages > 0}" aria-label="Page navigation example" >
+<!--              <nav th:if="${listaSolicitudes != null and listaSolicitudes.totalPages > 0}" aria-label="Page navigation example" >-->
+<!--                  <ul class="pagination">-->
+<!--                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a></li>-->
+<!--                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a></li>-->
+<!--                  </ul>-->
+<!--              </nav>-->
+
+              <nav th:if="${listaSolicitudes != null and listaSolicitudes.totalPages > 0}" aria-label="Page navigation example">
                   <ul class="pagination">
-                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a></li>
-                      <li class="page-item"><a th:href="@{/solicitudes/indexPaginate(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a></li>
+                      <!-- Botón "Anterior" -->
+                      <li class="page-item" th:classappend="${listaSolicitudes.number == 0} ? 'disabled'">
+                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a>
+                      </li>
+                      <!-- Botón "Siguiente" -->
+                      <li class="page-item" th:classappend="${listaSolicitudes.number == listaSolicitudes.totalPages - 1} ? 'disabled'">
+                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a>
+                      </li>
                   </ul>
               </nav>
             

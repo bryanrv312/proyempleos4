@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import net.brubio.service.db.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -41,6 +42,9 @@ public class VacantesController {
 	
 	@Autowired
 	private ICategoriasService serviceCategorias;
+
+	@Autowired
+	private S3Service s3Service;
 	
 
 	@GetMapping("/index")
@@ -106,7 +110,8 @@ public class VacantesController {
 		if (!multiPart.isEmpty()) {
 			//String ruta = "c:/empleos/img-vacantes/";
 			//String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
-			String nombreImagen = Utileria.guardarArchivo2(multiPart);
+			//String nombreImagen = Utileria.guardarArchivo2(multiPart);
+			String nombreImagen = s3Service.uploadFileAmazonS3(multiPart);
 			if (nombreImagen != null) { // La imagen si se subio
 				vacante.setImagen(nombreImagen);
 			}
