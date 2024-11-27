@@ -25,7 +25,7 @@ public class S3Service {
             metadata.setContentType(file.getContentType());
 
             PutObjectRequest putRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata);
-            s3Client.putObject(putRequest);
+            s3Client.putObject(putRequest); //subir el archivo al s3
 
             // Devolver la URL del archivo subido
             return s3Client.getUrl(bucketName, fileName).toString();

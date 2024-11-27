@@ -120,6 +120,16 @@ public class SolicitudesController {
 			System.out.println("Existieron Errores");
 			return "solicitudes/formSolicitud";
 		}
+
+		//relacionamos al Usuario con la Solicitud
+		Usuario usuario = serviceUsuarios.buscarPorUsername(username);
+		solicitud.setUsuario(usuario);
+		System.err.println("ya set usuario");
+
+		if (serviceSolicitudes.existeSolicitudParaVacante(usuario.getId(), solicitud.getVacante().getId())) {
+			attributes.addFlashAttribute("error", "Ya has aplicado a esta vacante anteriormente.");
+			return "redirect:/";
+		}
 		
 		if(!multipart.isEmpty()) {
 			//String nombreArchivo = Utileria.guardarArchivo(multipart, rutaCv);
@@ -130,13 +140,20 @@ public class SolicitudesController {
 			}
 		}
 		
-		//relacionamos al Usuario con la Solicitud
-		Usuario usuario = serviceUsuarios.buscarPorUsername(username);
-		solicitud.setUsuario(usuario);
-		
 		//guardamos en bd
 		serviceSolicitudes.guardar(solicitud);
 		attributes.addFlashAttribute("msg", "Gracias por enviar tu CV !!!");
+
+		Vacante vacante = serviceVacantes.buscarVacantePorId(solicitud.getVacante().getId());
+		String nombreVacante = vacante.getNombre();
+
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(usuario.getEmail());
+		message.setSubject("Gracias por tu postulación");
+		message.setText("Aplicaste a " + solicitud.getVacante().getNombre());
+		message.setText("Hola " + usuario.getNombre() + ", Aplicaste a " + nombreVacante + "\n\nGracias por enviar tu CV. Pronto revisaremos tu solicitud.\n\nSaludos,\nEl equipo de Recursos Humanos");
+
+		javaMailSender.send(message); // Enviamos el correo
 		
 		System.out.println("Solicitud: " + solicitud);
 		return "redirect:/";
