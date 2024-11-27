@@ -22,4 +22,6 @@ public interface ISolicitudesService {
 
 	Page<Solicitud> buscarPorUsuario(Usuario user, Pageable pageable);
 
+	boolean existeSolicitudParaVacante(Integer idUsuario, Integer idSolicitudVacante);
+
 }

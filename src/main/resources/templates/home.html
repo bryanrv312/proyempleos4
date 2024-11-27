@@ -80,6 +80,8 @@
     <h2 class="font-weight-bold text-center text-capitalize">DESTACADOS</h2>
     
     <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+
+	<div th:if="${error != null}" class="alert alert-warning" th:text="${error}" role="alert"></div>
     
     <hr>
     

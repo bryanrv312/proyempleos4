@@ -52,4 +52,9 @@ public class SolicitudesServiceJpa implements ISolicitudesService{
 		return solicitudesRepo.findByUsuario(user,pageable);
 	}
 
+	@Override
+	public boolean existeSolicitudParaVacante(Integer idUsuario, Integer idVacante) {
+		return solicitudesRepo.findByUsuarioIdAndVacanteId(idUsuario, idVacante).isPresent();
+	}
+
 }
