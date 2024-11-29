@@ -53,7 +53,8 @@
                       <div class="form-group">
                         <label for="archivoCV">Curriculm Vitae</label>
                         <input type="file" class="form-control-file" name="archivoCV" id="archivoCV">
-                        <p class="help-block">Archivos [ pdf,doc,docx ]</p>
+                        <p class="help-block">Archivos [ pdf,doc,docx ], max 3MB</p>
+                          <div th:if="${error != null}" class="alert alert-warning" th:text="${error}" role="alert"></div>
                       </div>
                     </div>
                   </div> 
