@@ -111,7 +111,7 @@ public class SolicitudesController {
 	
 	@PostMapping("/save")
 	public String guardar(Solicitud solicitud, BindingResult result, @RequestParam("archivoCV") MultipartFile multipart, 
-			Authentication autentication, RedirectAttributes attributes) {
+			Authentication autentication, RedirectAttributes attributes, Model model) {
 		
 		//recuperamos el nombre del usuario actual
 		String username = autentication.getName();
@@ -124,7 +124,6 @@ public class SolicitudesController {
 		//relacionamos al Usuario con la Solicitud
 		Usuario usuario = serviceUsuarios.buscarPorUsername(username);
 		solicitud.setUsuario(usuario);
-		System.err.println("ya set usuario");
 
 		if (serviceSolicitudes.existeSolicitudParaVacante(usuario.getId(), solicitud.getVacante().getId())) {
 			attributes.addFlashAttribute("error", "Ya has aplicado a esta vacante anteriormente.");
@@ -132,6 +131,19 @@ public class SolicitudesController {
 		}
 		
 		if(!multipart.isEmpty()) {
+			if (multipart.getSize() > 3 * 1024 * 1024) {
+				attributes.addFlashAttribute("error", "El tamaño máximo permitido es 3 MB.");
+				return "redirect:/solicitudes/create/" + solicitud.getVacante().getId();
+			}
+			//validar el archivo
+			String tipoArchivo = multipart.getContentType();
+			System.err.println("TIPO DE ARCHIVO= " + tipoArchivo);
+			if (!tipoArchivo.equals("application/pdf") &&
+					!tipoArchivo.equals("application/msword") &&
+					!tipoArchivo.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+				attributes.addFlashAttribute("error", "El archivo debe ser PDF o Word (doc, docx)");
+				return "redirect:/solicitudes/create/" + solicitud.getVacante().getId();
+			}
 			//String nombreArchivo = Utileria.guardarArchivo(multipart, rutaCv);
 			//String nombreArchivo = Utileria.guardarArchivo2(multipart);
 			String nombreArchivo = s3Service.uploadFileAmazonS3(multipart);
