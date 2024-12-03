@@ -180,14 +180,6 @@ public class HomeController {
 		
 		return "redirect:/";
 	}
-
-	/*public String generarYAsignarToken(Usuario usuario) {
-		// Generar el token
-		String token = UUID.randomUUID().toString();
-		usuario.setToken(token);
-		serviceUsuarios.guardar(usuario);
-		return token;
-	}*/
 	
 	@GetMapping("/signup")
 	//public String crear(Usuario usuario) {
@@ -208,7 +200,8 @@ public class HomeController {
 		usuario.setPassword(pwdEncriptado);
 		
 		usuario.setFechaRegistro(new Date());
-		usuario.setEstatus(0);
+		//usuario.setEstatus(1);
+		usuario.setEstatus(1);
 		usuario.setConfirmado(false);
 		
 		Perfil perfil = new Perfil();
@@ -242,10 +235,10 @@ public class HomeController {
 		Usuario usuario = serviceUsuarios.buscarUsuarioPorToken(token);
 		System.err.println("-usuario del token: " + usuario.getNombre());
 
-		if (usuario != null && usuario.getEstatus() == 0) {
-			System.err.println("entro pa");
-			usuario.setEstatus(1);
-			//usuario.setConfirmado(true); // actualizara a 1 la confirmacion en la bd
+		if (usuario != null /*&& usuario.getEstatus() == 0*/ && !usuario.isConfirmado()) {
+			System.err.println("entro al if, confirmado se cambiara a true");
+			//usuario.setEstatus(1);
+			usuario.setConfirmado(true); // actualizara a 1 la confirmacion en la bd
 			serviceUsuarios.guardar(usuario);
 			System.err.println("/confirmar_email - confirmacion_exitosa");
 

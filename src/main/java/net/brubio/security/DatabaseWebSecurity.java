@@ -37,18 +37,24 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	private DataSource dataSource;*/
 
 	@Autowired
+	private CustomUserDetailsService cuds;
+	@Autowired
 	private IUsuariosService serviceUsuarios;
-	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+
+	/*
 	@Bean	
 	protected UserDetailsManager usersCustom(DataSource dataSource) {
 		JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-		users.setUsersByUsernameQuery("select username, password, estatus from Usuarios where username=?");
+		users.setUsersByUsernameQuery("select username, password, estatus, confirmado from Usuarios where username=?");
 		users.setAuthoritiesByUsernameQuery("select u.username, p.perfil from UsuarioPerfil up " + 
 				"inner join Usuarios u on u.id = up.idUsuario " + 
 				"inner join Perfiles p on p.id = up.idPerfil " + 
 				"where u.username = ?");
 		return users;
-	}
+	}/*
 	
 	/*
 	@Bean	
@@ -105,18 +111,23 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.and()
 			.formLogin()
 			.loginPage("/login")
-			.failureHandler(customFailureHandler())  // para manejar errores
+			.failureHandler(customFailureHandler())  // para manejar errores en el login
 			.permitAll();
 
 		return http.build();
 	}
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(cuds).passwordEncoder(passwordEncoder);
+	}
 	
 	
 	//password encrypted
-	@Bean
+	/*@Bean
 	protected PasswordEncoder passwordEncoder() { 
 	return new BCryptPasswordEncoder();
-	}
+	}*/
 
 	@Bean
 	public AuthenticationFailureHandler customFailureHandler() {
@@ -127,12 +138,17 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			if (usuario != null && usuario.getEstatus() == 0) {
 				System.err.println("Usuario bloqueado");
 				response.sendRedirect("/login?blocked=true");
+			} else if (usuario != null && !usuario.isConfirmado()) {
+				System.err.println("No se ha confirmado su correo");
+				response.sendRedirect("/login?confirmado=true");
 			} else {
 				System.err.println("Credenciales incorrectas");
 				response.sendRedirect("/login?error=true");
 			}
 		};
 	}
+
+
 
 		
 }
