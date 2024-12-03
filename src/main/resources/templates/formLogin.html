@@ -39,6 +39,9 @@
                   <div th:if="${param.blocked}" class="alert alert-warning" role="alert">
                     Su cuenta está bloqueada uu
                   </div>
+                  <div th:if="${param.confirmado}" class="alert alert-warning" role="alert">
+                    Por favor, confirma tu correo electrónico para activar tu cuenta.
+                  </div>
                   <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
 
                   <img class="mb-4 rounded mx-auto d-block" th:src="@{/images/lock.png}" alt="" width="128" height="128">
