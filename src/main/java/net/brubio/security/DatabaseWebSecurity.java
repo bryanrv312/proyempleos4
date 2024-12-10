@@ -94,7 +94,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	@Bean
 	protected SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
-			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**").permitAll()
+			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**", "/favicon.png").permitAll()
 			.requestMatchers("/", "/signup", "/search","/bcrypt/**", "/vacantes/view/**").permitAll()
 			.requestMatchers("/login", "/confirmar-registro").permitAll()//para que funcione el AuthenticationFailureHandler
 			
@@ -123,7 +123,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	}
 	
 	
-	//password encrypted
+	//password encrypted = ahora ya es una clase de configuracion
 	/*@Bean
 	protected PasswordEncoder passwordEncoder() { 
 	return new BCryptPasswordEncoder();
