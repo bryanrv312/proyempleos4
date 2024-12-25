@@ -103,7 +103,11 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.requestMatchers("/solicitudes/create/**").hasAnyAuthority("USUARIO")
 			.requestMatchers("/solicitudes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR","USUARIO")
 			.requestMatchers("/vacantes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
-			.requestMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR") 
+			.requestMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+			.requestMatchers("/usuarios/editarUsuario").hasAnyAuthority("USUARIO")
+			.requestMatchers("/usuarios/editarCorreo").hasAnyAuthority("USUARIO")
+			.requestMatchers("/usuarios/editarPassword").hasAnyAuthority("USUARIO")
+			.requestMatchers("/usuarios/formSetting").hasAnyAuthority("USUARIO")
 			.requestMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
 			.requestMatchers("/solicitudes/indexPaginate_usuario/**").hasAnyAuthority("USUARIO")
 			.anyRequest().authenticated()
@@ -112,7 +116,9 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.formLogin()
 			.loginPage("/login")
 			.failureHandler(customFailureHandler())  // para manejar errores en el login
-			.permitAll();
+			.permitAll()
+			.and()
+			.csrf().disable(); // Desactivar CSRF
 
 		return http.build();
 	}

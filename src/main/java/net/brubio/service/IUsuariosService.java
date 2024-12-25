@@ -23,4 +23,10 @@ public interface IUsuariosService {
 
 	Usuario buscarUsuarioPorToken(String token);
 
+	Usuario editar(Usuario usuario);
+
+	Usuario editarCorreo(Usuario usuario);
+
+	Usuario editarPassword(Usuario usuario);
+
 }
