@@ -31,6 +31,9 @@
 			<li class="nav-item" sec:authorize="hasAnyAuthority('USUARIO')">
 				<a class="nav-link" th:href="@{/solicitudes/indexPaginate_usuario}">Mis Solicitudes</a>
 			</li>
+			<li class="nav-item" sec:authorize="hasAnyAuthority('USUARIO')">
+				<a class="nav-link" th:href="@{/usuarios/formSetting}">Mi Cuenta</a>
+			</li>
 			<!--  <li class="nav-item"><a class="nav-link" th:href="@{/solicitudes/index}">Solicitudes</a></li>-->
 		</ul>
 		<div sec:authorize="isAnonymous()"> 

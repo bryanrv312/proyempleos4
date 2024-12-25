@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="htpp://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" th:href="@{/favicon.png}" />
+
+    <title>EmpleosApp | Formulario de Settings</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
+
+<!--    nuevo css y js-->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+    <!-- Own CSS -->
+    <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+    <link rel="stylesheet" href="/css/barra_navegacion.css" />
+    <link rel="stylesheet" href="/css/registro.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
+    <!-- Código para los inputs con calendarios. -->
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+    <style type="text/css">
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Contenedor que agrupa los formularios y botones */
+        .wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1400px;
+            gap: 20px; /* Espacio entre formularios y botones */
+        }
+
+        /* Formulario individual */
+        .form {
+            display: flex;
+            flex-direction: column;
+            width: 20%; /* Cada formulario ocupa un 20% del ancho */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .boton-form {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .boton-form:hover {
+            background-color: #c82333;
+        }
+
+        /* Botones de acción */
+        .form-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 20%; /* Los botones ocupan el mismo espacio que los formularios */
+            gap: 20px; /* Espacio entre botones */
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<header th:insert="~{fragments/menu :: menu-principal}">
+
+</header>
+
+<hr>
+<br>
+<br>
+
+<main>
+    <div class="container">
+        <div class="wrapper">
+
+            <!-- Formulario 1 -->
+            <form class="form" th:action="@{/usuarios/editarUsuario}" method="post" th:object="${user1}">
+                <div id="alerta_datos" th:if="${msg_datos != null}" class="alert alert-warning" th:text="${msg_datos}" role="alert"></div>
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{email}" />
+
+                <div class="mb-4">
+                    <label for="nombre">Nombres</label>
+                    <input id="nombre" type="text" class="input-field" th:field="*{nombre}" required disabled />
+                </div>
+
+                <div class="mb-4">
+                    <label for="username">Usuario</label>
+                    <input id="username" type="text" class="input-field" th:field="*{username}" required disabled />
+                </div>
+
+                <button type="submit" id="boton_form" class="btn btn-danger boton-form" style="display:none">Editar</button>
+            </form>
+
+            <!-- Formulario 2 -->
+            <form class="form" th:action="@{/usuarios/editarCorreo}" method="post" th:object="${user2}">
+                <div id="alerta_correo" th:if="${msg_correo != null}" class="alert alert-warning" th:text="${msg_correo}" role="alert"></div>
+                <input type="hidden" th:field="*{id}" />
+                <input type="hidden" th:field="*{nombre}" />
+                <input type="hidden" th:field="*{username}" />
+
+                <div class="mb-4">
+                    <label for="email_2">Email</label>
+                    <input id="email_2" type="email" class="input-field" th:field="*{email}" required disabled />
+                </div>
+
+                <button type="submit" id="boton_form_correo" class="btn btn-danger boton-form" style="display:none">Editar</button>
+            </form>
+
+            <!-- Formulario 3 -->
+            <form class="form" th:action="@{/usuarios/editarPassword}" method="post" th:object="${user3}">
+                <input type="hidden" th:field="*{id}" />
+                <div id="alerta_password" th:if="${msg_pass != null}" class="alert alert-warning" th:text="${msg_pass}" role="alert"></div>
+
+                <div class="mb-4">
+                    <label for="password_1">Contraseña</label>
+                    <input id="password_1" type="password" class="input-field" th:value="*{256131542}" required disabled />
+                </div>
+                <div class="mb-4">
+                    <label id="label_psw1" style="display: none;"> Actual contraseña</label>
+                    <input id="psw1" type="password" class="input-field"  name="actual_pass" style="display: none;" required disabled/>
+                </div>
+                <div class="mb-4">
+                    <label id="label_psw2" style="display: none;"> Nueva contraseña</label>
+                    <input id="psw2" type="password" class="input-field"  name="nuevo_pass" style="display: none;" required disabled/>
+                </div>
+
+
+                <button type="submit" id="boton_form_password" class="btn btn-danger boton-form" style="display:none">Editar</button>
+            </form>
+
+            <!-- Botones de acción -->
+            <div class="form-buttons">
+                <button id="boton_editar" type="button" class="btn btn-custom">Editar Datos</button>
+                <button id="boton_editar_correo" type="button" class="btn btn-custom">Cambiar Correo</button>
+                <button id="boton_editar_password" type="button" class="btn btn-custom">Cambiar Contraseña</button>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+
+
+
+    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
+
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+<!--Nuevo-->
+    <!-- Own Javascript -->
+    <script th:src="@{/js/index.js}"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+
+    <script type="text/javascript">
+        document.getElementById("boton_editar").addEventListener("click", function (){
+            var alertaDatos = document.getElementById("alerta_datos");
+            if (alertaDatos) {
+                alertaDatos.style.display = "none";
+            }
+            var nombre = document.getElementById("nombre");
+            var username = document.getElementById("username");
+            var boton_form = document.getElementById("boton_form")
+            nombre.disabled = !nombre.disabled; // Invierte el estado de input1
+            username.disabled = !username.disabled;
+            boton_form.style.display = "inline-block";
+            alert("Ahora puede editar los 2 primeros campos");
+        });
+
+        document.getElementById("boton_editar_correo").addEventListener("click", function (){
+            // ocultar msg
+            var alertaCorreo = document.getElementById("alerta_correo");
+            if (alertaCorreo) {
+                alertaCorreo.style.display = "none";
+            }
+            var correo = document.getElementById("email_2");
+            email_2.disabled = !email_2.disabled;
+            boton_form_correo.style.display = "inline-block";
+            alert("Ahora ya puede editar su correo");
+        });
+
+        document.getElementById("boton_editar_password").addEventListener("click", function (){
+            // ocultar msg
+            var alertaPassword = document.getElementById("alerta_password");
+            if (alertaPassword) {
+                alertaPassword.style.display = "none";
+            }
+
+            var label_psw1 = document.getElementById("label_psw1");
+            var label_psw2 = document.getElementById("label_psw2");
+            var actual = document.getElementById("psw1");
+            var nuevo = document.getElementById("psw2");
+            var boton_form_pass = document.getElementById("boton_form_password");
+
+            label_psw1.style.display = "inline-block";
+            actual.style.display = "inline-block";
+            actual.disabled = !actual.disabled;
+            label_psw2.style.display = "inline-block";
+            nuevo.style.display = "inline-block";
+            nuevo.disabled = !nuevo.disabled;
+
+            boton_form_password.style.display = "inline-block";
+
+            alert("Ahora ya puede editar su contraseña !");
+        });
+    </script>
+</body>
+</html>

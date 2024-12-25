@@ -63,7 +63,7 @@ public class CategoriasController {
 		attributes.addFlashAttribute("msg", "Categoria Guardada");
 		System.out.println("Categoria: " + categoria);
 		
-		return "redirect:/categorias/index";
+		return "redirect:/categorias/indexPaginate";
 	}
 	
 	
@@ -72,7 +72,7 @@ public class CategoriasController {
 		System.out.println("Borrando Categoría con id: " + idCategoria);
 		serviceCategorias.eliminar(idCategoria);
 		attributes.addFlashAttribute("msg", "La categoria fue Eliminada !!!");
-		return "redirect:/categorias/index";
+		return "redirect:/categorias/indexPaginate";
 	}
 	
 	

@@ -60,4 +60,44 @@ public class UsuariosServiceJpa implements IUsuariosService {
 		return usuarioRepo.findByToken(token);
 	}
 
+	@Override
+	public Usuario editar(Usuario usuario) {
+		Optional<Usuario> user = usuarioRepo.findById(usuario.getId());
+		if(user.isPresent()){
+			Usuario user_edit = user.get();
+			user_edit.setNombre(usuario.getNombre());
+			user_edit.setUsername(usuario.getUsername());
+			return usuarioRepo.save(user_edit);
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public Usuario editarCorreo(Usuario usuario) {
+		Optional<Usuario> user = usuarioRepo.findById(usuario.getId());
+		if(user.isPresent()){
+			Usuario user_edit = user.get();
+			user_edit.setEmail(usuario.getEmail());
+			user_edit.setConfirmado(usuario.isConfirmado());
+			user_edit.setToken(usuario.getToken());
+			return usuarioRepo.save(user_edit);
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public Usuario editarPassword(Usuario usuario) {
+		Optional<Usuario> user = usuarioRepo.findById(usuario.getId());
+		if(user.isPresent()){
+			Usuario user_edit = user.get();
+			user_edit.setPassword(usuario.getPassword());
+			return usuarioRepo.save(user_edit);
+		}else{
+			return null;
+		}
+
+	}
+
 }
