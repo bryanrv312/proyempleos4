@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -127,8 +128,8 @@ public class UsuariosController {
 		if(usu.getEmail() != null) {
 			String token = UUID.randomUUID().toString();
 			usu.setToken(token);
-			//String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
-			String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
+			String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
+			//String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
 			usu.setConfirmado(false);
 			System.err.println("cammpo confirmado = " + usu);
 
@@ -154,6 +155,12 @@ public class UsuariosController {
 		System.err.println(usu);
 		System.err.println(actual + " - " + nuevo);
 		Usuario usu_actual = serviceUsuarios.buscarPorId(usu.getId());
+
+		if (!StringUtils.hasText(actual) || !StringUtils.hasText(nuevo)) {
+			System.err.println("Campos vacíos");
+			attributes.addFlashAttribute("msg_pass", "Por favor, llene los campos.");
+			return "redirect:/usuarios/formSetting";
+		}
 
 		if (nuevo.equals(actual)) {
 			System.err.println("Actual == Nuevo");

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="htpp://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,63 +16,41 @@
     <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" >
 
-<!--    nuevo css y js-->
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-
-    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
-    <!-- Own CSS -->
-    <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
-    <link rel="stylesheet" href="/css/barra_navegacion.css" />
-    <link rel="stylesheet" href="/css/registro.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
-
-    <!-- Código para los inputs con calendarios. -->
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-
     <style type="text/css">
-        /* Contenedor principal */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
 
-        /* Contenedor que agrupa los formularios y botones */
+        /* Contenedor agrupador */
         .wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Tres formularios y una columna para botones */
+            gap: 20px; /* Espaciado entre elementos */
             max-width: 1400px;
-            gap: 20px; /* Espacio entre formularios y botones */
+            width: 100%;
         }
 
-        /* Formulario individual */
+        .contenedor-principal {
+            display: flex; /* Flexbox para alinear elementos en columna */
+            flex-direction: column; /* Colocar los elementos en vertical */
+            align-items: center; /* Centrar elementos horizontalmente */
+            gap: 10px; /* Espaciado uniforme entre los elementos */
+            width: 100%; /* Asegurar que ocupa el ancho disponible */
+        }
+
+        /* Formularios */
         .form {
-            display: flex;
-            flex-direction: column;
-            width: 20%; /* Cada formulario ocupa un 20% del ancho */
+            background-color: #f8f9fa; /* Fondo claro para los formularios */
+            border-radius: 15px; /* Bordes redondeados */
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%; /* Asegurar que ocupan el mismo ancho */
+            max-width: 500px; /* Limitar el ancho máximo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para estética */
         }
 
         .input-field {
-            width: 100%;
             padding: 10px;
-            border-radius: 5px;
             border: 1px solid #ccc;
+            border-radius: 5px;
             margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .boton-form {
@@ -79,17 +58,15 @@
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            font-weight: bold;
-            background-color: #dc3545;
+            //background-color: #dc3545;
             color: white;
             border: none;
             border-radius: 5px;
-            margin-top: 10px;
             cursor: pointer;
         }
 
         .boton-form:hover {
-            background-color: #c82333;
+            background-color: #23c8a7;
         }
 
         /* Botones de acción */
@@ -97,25 +74,42 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 20%; /* Los botones ocupan el mismo espacio que los formularios */
-            gap: 20px; /* Espacio entre botones */
+            gap: 20px;
         }
 
         .btn-custom {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
+            width: 100%; /* Botones del mismo ancho */
+            padding: 12px;
+            margin: 10px 0; /* Espaciado entre botones */
             font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            padding: 15px 20px;
+            font-weight: bold;
             text-align: center;
+            background-color: white; /* Fondo blanco */
+            color: black; /* Letras negras */
+            border: 1px solid black; /* Borde negro para más contraste */
+            border-radius: 10px; /* Bordes redondeados */
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .btn-custom:hover {
-            background-color: #0056b3;
+            background-color: #50a28a; /* Fondo gris claro al pasar el cursor */
+            color: #e3d4e5; /* Letras negras */
+        }
+
+        .form-left {
+            background-color: #e9ecef; /* Fondo oscuro */
+            border-radius: 15px; /* Bordes redondeados */
+            padding: 20px;
+            width: 100%; /* Asegurar el mismo ancho que los formularios */
+            max-width: 500px; /* Limitar el ancho máximo */
+            text-align: center; /* Centrar el contenido */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+        }
+
+        /* Texto centrado */
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
@@ -123,88 +117,92 @@
 
 <body>
 
-<header th:insert="~{fragments/menu :: menu-principal}">
+    <header th:insert="~{fragments/menu :: menu-principal}">
 
-</header>
+    </header>
 
-<hr>
-<br>
-<br>
+    <hr>
+    <br>
+    <br>
 
-<main>
-    <div class="container">
-        <div class="wrapper">
+    <main>
+        <div class="container">
+            <div class="container">
+                <div class="contenedor-principal">
+                    <div class="wrapper">
+                        <!-- Formulario de Datos -->
+                        <form class="form" th:action="@{/usuarios/editarUsuario}" method="post" th:object="${user1}">
+                            <div id="alerta_datos" th:if="${msg_datos != null}" class="alert alert-warning" th:text="${msg_datos}" role="alert"></div>
+                            <input type="hidden" th:field="*{id}" />
+                            <input type="hidden" th:field="*{email}" />
+                            <div class="mb-4">
+                                <label for="nombre">Nombres</label>
+                                <input id="nombre" type="text" class="input-field" th:field="*{nombre}" required disabled />
+                            </div>
+                            <div class="mb-4">
+                                <label for="username">Usuario</label>
+                                <input id="username" type="text" class="input-field" th:field="*{username}" required disabled />
+                            </div>
+                            <button type="submit" id="boton_form" class="btn btn-success boton-form" style="display:none">Editar</button>
+                        </form>
 
-            <!-- Formulario 1 -->
-            <form class="form" th:action="@{/usuarios/editarUsuario}" method="post" th:object="${user1}">
-                <div id="alerta_datos" th:if="${msg_datos != null}" class="alert alert-warning" th:text="${msg_datos}" role="alert"></div>
-                <input type="hidden" th:field="*{id}" />
-                <input type="hidden" th:field="*{email}" />
+                        <!-- Formulario de Email -->
+                        <form class="form" th:action="@{/usuarios/editarCorreo}" method="post" th:object="${user2}">
+                            <div id="alerta_correo" th:if="${msg_correo != null}" class="alert alert-warning" th:text="${msg_correo}" role="alert"></div>
+                            <input type="hidden" th:field="*{id}" />
+                            <input type="hidden" th:field="*{nombre}" />
+                            <input type="hidden" th:field="*{username}" />
+                            <div class="mb-4">
+                                <label for="email_2">Correo</label>
+                                <input id="email_2" type="email" class="input-field" th:field="*{email}" required disabled />
+                            </div>
+                            <button type="submit" id="boton_form_correo" class="btn btn-success boton-form" style="display:none">Editar</button>
+                        </form>
 
-                <div class="mb-4">
-                    <label for="nombre">Nombres</label>
-                    <input id="nombre" type="text" class="input-field" th:field="*{nombre}" required disabled />
+                        <!-- Formulario de Contraseña -->
+                        <form class="form" th:action="@{/usuarios/editarPassword}" method="post" th:object="${user3}">
+                            <input type="hidden" th:field="*{id}" />
+                            <div id="alerta_password" th:if="${msg_pass != null}" class="alert alert-warning" th:text="${msg_pass}" role="alert"></div>
+                            <div class="mb-4">
+                                <label for="password_1">Contraseña</label>
+                                <input id="password_1" type="password" class="input-field" th:value="*{256131542}" required disabled />
+                            </div>
+                            <div class="mb-4">
+                                <label id="label_psw1" style="display: none;">Actual contraseña</label>
+                                <input id="psw1" type="password" class="input-field" name="actual_pass" style="display: none;" required disabled/>
+                            </div>
+                            <div class="mb-4">
+                                <label id="label_psw2" style="display: none;">Nueva contraseña</label>
+                                <input id="psw2" type="password" class="input-field" name="nuevo_pass" style="display: none;" required disabled/>
+                            </div>
+                            <button type="submit" id="boton_form_password" class="btn btn-success boton-form" style="display:none">Editar</button>
+                        </form>
+
+                        <!-- Botones de Acción -->
+                        <div class="form-left bg-dark">
+                            <h2> </h2>
+                            <p></p>
+                            <br>
+                            <div class="form-field">
+                                <button id="boton_editar" type="submit" class="btn btn-custom">Editar Datos</button>
+                            </div>
+
+                            <br>
+                            <div class="form-field">
+                                <button id="boton_editar_correo" type="submit" class="btn btn-custom">Cambiar Correo</button>
+                            </div>
+                            <br>
+                            <div class="form-field">
+                                <button id="boton_editar_password" type="submit" class="btn btn-custom">Cambiar Contraseña</button>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="mb-4">
-                    <label for="username">Usuario</label>
-                    <input id="username" type="text" class="input-field" th:field="*{username}" required disabled />
-                </div>
-
-                <button type="submit" id="boton_form" class="btn btn-danger boton-form" style="display:none">Editar</button>
-            </form>
-
-            <!-- Formulario 2 -->
-            <form class="form" th:action="@{/usuarios/editarCorreo}" method="post" th:object="${user2}">
-                <div id="alerta_correo" th:if="${msg_correo != null}" class="alert alert-warning" th:text="${msg_correo}" role="alert"></div>
-                <input type="hidden" th:field="*{id}" />
-                <input type="hidden" th:field="*{nombre}" />
-                <input type="hidden" th:field="*{username}" />
-
-                <div class="mb-4">
-                    <label for="email_2">Email</label>
-                    <input id="email_2" type="email" class="input-field" th:field="*{email}" required disabled />
-                </div>
-
-                <button type="submit" id="boton_form_correo" class="btn btn-danger boton-form" style="display:none">Editar</button>
-            </form>
-
-            <!-- Formulario 3 -->
-            <form class="form" th:action="@{/usuarios/editarPassword}" method="post" th:object="${user3}">
-                <input type="hidden" th:field="*{id}" />
-                <div id="alerta_password" th:if="${msg_pass != null}" class="alert alert-warning" th:text="${msg_pass}" role="alert"></div>
-
-                <div class="mb-4">
-                    <label for="password_1">Contraseña</label>
-                    <input id="password_1" type="password" class="input-field" th:value="*{256131542}" required disabled />
-                </div>
-                <div class="mb-4">
-                    <label id="label_psw1" style="display: none;"> Actual contraseña</label>
-                    <input id="psw1" type="password" class="input-field"  name="actual_pass" style="display: none;" required disabled/>
-                </div>
-                <div class="mb-4">
-                    <label id="label_psw2" style="display: none;"> Nueva contraseña</label>
-                    <input id="psw2" type="password" class="input-field"  name="nuevo_pass" style="display: none;" required disabled/>
-                </div>
-
-
-                <button type="submit" id="boton_form_password" class="btn btn-danger boton-form" style="display:none">Editar</button>
-            </form>
-
-            <!-- Botones de acción -->
-            <div class="form-buttons">
-                <button id="boton_editar" type="button" class="btn btn-custom">Editar Datos</button>
-                <button id="boton_editar_correo" type="button" class="btn btn-custom">Cambiar Correo</button>
-                <button id="boton_editar_password" type="button" class="btn btn-custom">Cambiar Contraseña</button>
             </div>
-
         </div>
-    </div>
-</main>
-
-
-
-
+    </main>
 
     <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
 
@@ -215,16 +213,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-
-<!--Nuevo-->
-    <!-- Own Javascript -->
-    <script th:src="@{/js/index.js}"></script>
-
-    <!-- Bootstrap JavaScript -->
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/js/popper.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/jquery-ui.min.js}"></script>
 
     <script type="text/javascript">
         document.getElementById("boton_editar").addEventListener("click", function (){
