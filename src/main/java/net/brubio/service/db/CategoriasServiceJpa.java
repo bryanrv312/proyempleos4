@@ -3,6 +3,7 @@ package net.brubio.service.db;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class CategoriasServiceJpa implements ICategoriasService{
 	@Override
 	public void guardar(Categoria categoria) {
 		categoriasRepo.save(categoria);
-		
+
 	}
 
 	@Override
@@ -53,6 +54,32 @@ public class CategoriasServiceJpa implements ICategoriasService{
 	@Override
 	public Page<Categoria> buscarTodas(Pageable page) {
 		return categoriasRepo.findAll(page);
+	}
+
+	@Override
+	public void actualizar(Categoria categoria) {
+		if (categoriasRepo.existsById(categoria.getId())) {//si existe la cat, retorna true
+			categoriasRepo.save(categoria);
+		} else {
+			throw new EntityNotFoundException("La categoría con ID " + categoria.getId() + " no existe.");
+		}
+	}
+
+	public Optional<Categoria> buscarPorNombreIgnoreCase(String nombre) {
+		if (nombre == null || nombre.trim().isEmpty()) {
+			return Optional.empty();
+		}
+		return categoriasRepo.findByNombreIgnoreCase(nombre);
+	}
+
+	@Override
+	public List<Categoria> buscarPorNombreIgnoreCase2(String nombre) {
+		return categoriasRepo.findByNombreIgnoreCaseContaining(nombre);
+	}
+
+	@Override
+	public Page<Categoria> buscarPorNombreIgnoreCase2(String nombre, Pageable page) {
+		return categoriasRepo.findByNombreIgnoreCaseContaining(nombre, page);
 	}
 
 }

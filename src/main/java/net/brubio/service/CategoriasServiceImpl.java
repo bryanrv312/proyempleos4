@@ -2,6 +2,7 @@ package net.brubio.service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,6 +79,26 @@ public class CategoriasServiceImpl implements ICategoriasService{
 	@Override
 	public Page<Categoria> buscarTodas(Pageable page) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizar(Categoria categoria) {
+
+	}
+
+	@Override
+	public Optional<Categoria> buscarPorNombreIgnoreCase(String nombre) {
+		return Optional.empty();
+	}
+
+	@Override
+	public List<Categoria> buscarPorNombreIgnoreCase2(String nombre) {
+		return null;
+	}
+
+	@Override
+	public Page<Categoria> buscarPorNombreIgnoreCase2(String nombre, Pageable page) {
 		return null;
 	}
 
