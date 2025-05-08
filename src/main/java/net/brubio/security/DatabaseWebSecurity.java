@@ -7,6 +7,7 @@ import net.brubio.service.IUsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 @Configuration
 @EnableWebSecurity
+//@Profile("test")
 public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	
 	/*@Autowired
@@ -89,11 +91,12 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 		// El formulario de Login no requiere autenticacion
 		.and().formLogin().permitAll();
 	}*/
-	
+
 	
 	@Bean
 	protected SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
+			.requestMatchers("categorias/indexPaginate").permitAll()
 			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**", "/favicon.png").permitAll()
 			.requestMatchers("/", "/signup", "/search","/bcrypt/**", "/vacantes/view/**").permitAll()
 			.requestMatchers("/login", "/confirmar-registro").permitAll()//para que funcione el AuthenticationFailureHandler
@@ -108,6 +111,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.requestMatchers("/usuarios/editarCorreo").hasAnyAuthority("USUARIO")
 			.requestMatchers("/usuarios/editarPassword").hasAnyAuthority("USUARIO")
 			.requestMatchers("/usuarios/formSetting").hasAnyAuthority("USUARIO")
+			.requestMatchers("/chat/**").hasAnyAuthority("USUARIO")
 			.requestMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR")
 			.requestMatchers("/solicitudes/indexPaginate_usuario/**").hasAnyAuthority("USUARIO")
 			.anyRequest().authenticated()
