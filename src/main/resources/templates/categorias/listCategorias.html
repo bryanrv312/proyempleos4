@@ -35,6 +35,10 @@
                       <i class="fas fa-file"></i> Nueva
                   </a>
 
+                  <div class="ml-5">
+                      <p>Total registros: <span th:text="${totalResultados}"></span></p>
+                  </div>
+
                   <form th:action="@{/categorias/findbyname3}" method="get">
                       <div class="input-group">
                           <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." required>
@@ -43,6 +47,7 @@
                           </button>
                       </div>
                   </form>
+
               </div>
             <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
 
@@ -68,12 +73,25 @@
               </tbody>
             </table>
             
-            <nav th:if="${listaCategorias.totalPages > 0}" aria-label="Page navigation example" >
-				<ul class="pagination"> 
-					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number - 1})}" class="page-link">Anterior</a></li>
-					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number + 1})}" class="page-link">Siguiente</a></li> 
-				</ul>
-			</nav>
+<!--            <nav th:if="${listaCategorias.totalPages > 0}" aria-label="Page navigation example" >-->
+<!--				<ul class="pagination"> -->
+<!--					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number - 1})}" class="page-link">Anterior</a></li>-->
+<!--					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number + 1})}" class="page-link">Siguiente</a></li> -->
+<!--				</ul>-->
+<!--			</nav>-->
+
+              <nav th:if="${listaCategorias != null and listaCategorias.totalPages > 0}" aria-label="Page navigation example">
+                  <ul class="pagination">
+                      <!-- Botón Anterior -->
+                      <li class="page-item" th:classappend="${listaCategorias.number == 0} ? 'disabled'">
+                          <a th:href="@{${baseUrl}(page=${listaCategorias.number - 1}, nombre=${param.nombre})}" class="page-link">Anterior</a>
+                      </li>
+                      <!-- Botón Siguiente -->
+                      <li class="page-item" th:classappend="${listaCategorias.number == listaCategorias.totalPages - 1} ? 'disabled'">
+                          <a th:href="@{${baseUrl}(page=${listaCategorias.number + 1}, nombre=${param.nombre})}" class="page-link">Siguiente</a>
+                      </li>
+                  </ul>
+              </nav>
             
           </div>
         </div>

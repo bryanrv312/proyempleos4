@@ -32,11 +32,13 @@ public class CategoriasController {
 		model.addAttribute("listaCategorias", lista);
 		return "categorias/listCategorias";
 	}
-	
+
 	@GetMapping("/indexPaginate")
 	public String mostrarIndexPaginado(Model model, Pageable page) {
 		Page<Categoria> lista = serviceCategorias.buscarTodas(page);
 		model.addAttribute("listaCategorias", lista);
+		model.addAttribute("baseUrl", "/categorias/indexPaginate");
+		model.addAttribute("totalResultados", lista.getTotalElements());
 		return "categorias/listCategorias";
 	}
 
@@ -126,6 +128,7 @@ public class CategoriasController {
 //		}
 		Page<Categoria> listaPage = serviceCategorias.buscarPorNombreIgnoreCase2(nombreCategoria, pageable);
 		model.addAttribute("listaCategorias", listaPage);
+		model.addAttribute("totalResultados", listaPage.getTotalElements());
 		return "categorias/listCategorias";
 	}
 
