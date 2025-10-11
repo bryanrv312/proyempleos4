@@ -141,6 +141,11 @@
             <version>0.31.0</version>
         </dependency> -->
 
+		<dependency>
+			<groupId>com.mailjet</groupId>
+			<artifactId>mailjet-client</artifactId>
+			<version>5.2.4</version>
+		</dependency>
 
     </dependencies>
 
