@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.brubio.model.Vacante;
@@ -103,6 +104,11 @@ public class VacantesServiceImpl implements IVacantesService{
 	public Page<Vacante> buscarTodas(org.springframework.data.domain.Pageable page) {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
+
+	@Override
+	public Page<Vacante> buscarPorNombreIgnoreCase(Pageable pageable, String nombreVacante) {
+		return null;
+	}
 
 }

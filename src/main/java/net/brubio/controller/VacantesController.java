@@ -15,12 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,6 +55,7 @@ public class VacantesController {
 	public String mostrarIndexPaginado(Model model, Pageable page) {
 		Page<Vacante> lista = serviceVacantes.buscarTodas(page);
 		model.addAttribute("listaVacantes", lista);
+		model.addAttribute("totalResultados", lista.getTotalElements());
 		/*System.out.println("NUM de vacantes por Pagina: " + lista.getSize() + " - " + page);
 		for(Vacante v:lista) {
 			System.out.println(v.getNombre());
@@ -154,6 +150,15 @@ public class VacantesController {
 		System.out.println("Vacante: " + vacante.getId());
 		model.addAttribute("vacanteDetalle", vacante);
 		return "vacantes/detalle";
+	}
+
+	@GetMapping("/findByName")
+	public String buscarPorNombre(@RequestParam("nombre") String nombreVacante, Model model, Pageable page){
+		System.err.println(nombreVacante);
+		Page<Vacante> listaPage= serviceVacantes.buscarPorNombreIgnoreCase(page, nombreVacante);
+		model.addAttribute("listaVacantes", listaPage);
+		model.addAttribute("totalResultados", listaPage.getTotalElements());
+		return "vacantes/listVacantes";
 	}
 	
 

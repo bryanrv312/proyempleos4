@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -157,5 +158,14 @@ public class CategoryControllerTest {
                 .andExpect(model().attribute("categoria", categoria)); // Asegura que la categoría esperada está presente
     }
 
+    @Test
+    void contextLoads() {
+        assertNotNull(mockMvc);
+    }
 
+    @Test
+    void testRutaExiste() throws Exception {
+        mockMvc.perform(get("/categorias/findbyname/Ejemplo"))
+                .andDo(print());
+    }
 }
