@@ -61,6 +61,10 @@ public class VacantesServiceJpa implements IVacantesService {
 		return vacantesRepo.findAll(page);
 	}
 
-	
+	@Override
+	public Page<Vacante> buscarPorNombreIgnoreCase(Pageable pageable, String nombreVacante) {
+		return vacantesRepo.findByNombreIgnoreCaseContaining(nombreVacante, pageable);
+	}
+
 
 }

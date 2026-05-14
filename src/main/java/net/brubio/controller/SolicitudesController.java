@@ -58,6 +58,7 @@ public class SolicitudesController {
 	public String mostrarIndexPaginado(Pageable pageable, Model model) {
 		Page<Solicitud> lista = serviceSolicitudes.buscarTodas(pageable);
 		model.addAttribute("listaSolicitudes", lista);
+		model.addAttribute("totalResultados", lista.getTotalElements());
 		model.addAttribute("baseUrl", "/solicitudes/indexPaginate");
 		return "solicitudes/listSolicitudes";
 	}
@@ -76,6 +77,7 @@ public class SolicitudesController {
 			model.addAttribute("msg_null", "No hay solicitudes registradas para este usuario");
 		}else {
 			model.addAttribute("listaSolicitudes", lista);
+			model.addAttribute("totalResultados", lista.getTotalElements());
 		}
 		model.addAttribute("baseUrl", "/solicitudes/indexPaginate_usuario");
 
@@ -198,9 +200,17 @@ public class SolicitudesController {
 		}
 		
 		return "redirect:/solicitudes/indexPaginate";
-	} 
-	
-	
-	
-		
+	}
+
+	@GetMapping("/findbyname")
+	public String enviarEmail(@RequestParam("nombre") String nombreSolicitud, Model model, Pageable pageable) {
+		Page<Solicitud> listaSolicitudes = serviceSolicitudes.buscarPorNombreOVacante(nombreSolicitud, pageable);
+		for(Solicitud sol : listaSolicitudes){
+			System.err.println(sol.getVacante().getNombre());
+		}
+		model.addAttribute("listaSolicitudes", listaSolicitudes);
+		model.addAttribute("totalResultados", listaSolicitudes.getTotalElements());
+		return "solicitudes/listSolicitudes";
+	}
+
 }

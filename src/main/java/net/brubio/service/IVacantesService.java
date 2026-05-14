@@ -24,4 +24,6 @@ public interface IVacantesService {
 	List<Vacante> buscarByExample(Example<Vacante> example);
 	
 	Page<Vacante> buscarTodas(Pageable page);
+
+	public Page<Vacante> buscarPorNombreIgnoreCase(Pageable pageable, String nombreVacante);
 }
