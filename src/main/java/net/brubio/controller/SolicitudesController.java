@@ -57,6 +57,8 @@ public class SolicitudesController {
 	@GetMapping("/indexPaginate")
 	public String mostrarIndexPaginado(Pageable pageable, Model model) {
 		Page<Solicitud> lista = serviceSolicitudes.buscarTodas(pageable);
+		System.err.println(pageable);
+		System.err.println();
 		model.addAttribute("listaSolicitudes", lista);
 		model.addAttribute("totalResultados", lista.getTotalElements());
 		model.addAttribute("baseUrl", "/solicitudes/indexPaginate");
@@ -203,7 +205,7 @@ public class SolicitudesController {
 	}
 
 	@GetMapping("/findbyname")
-	public String enviarEmail(@RequestParam("nombre") String nombreSolicitud, Model model, Pageable pageable) {
+	public String buscarPorUsuarioOVacante(@RequestParam("nombre") String nombreSolicitud, Model model, Pageable pageable) {
 		Page<Solicitud> listaSolicitudes = serviceSolicitudes.buscarPorNombreOVacante(nombreSolicitud, pageable);
 		for(Solicitud sol : listaSolicitudes){
 			System.err.println(sol.getVacante().getNombre());

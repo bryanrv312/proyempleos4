@@ -36,7 +36,7 @@
                       <p>Total registros: <span th:text="${totalResultados}"></span></p>
                   </div>
 
-                  <form th:action="@{/solicitudes/findbyname}" method="get">
+                  <form th:action="@{/solicitudes/findbyname}" sec:authorize="hasAnyAuthority('ADMINISTRADOR','SUPERVISOR')" method="get">
                       <div class="input-group">
                           <input type="text" name="nombre" class="form-control" placeholder="Buscar por usuario o vacante..." required>
                           <button type="submit" class="btn btn-primary">
@@ -91,11 +91,11 @@
                   <ul class="pagination">
                       <!-- Botón "Anterior" -->
                       <li class="page-item" th:classappend="${listaSolicitudes.number == 0} ? 'disabled'">
-                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number - 1})}" class="page-link">Anterior</a>
+                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number - 1}, nombre=${param.nombre})}" class="page-link">Anterior</a>
                       </li>
                       <!-- Botón "Siguiente" -->
                       <li class="page-item" th:classappend="${listaSolicitudes.number == listaSolicitudes.totalPages - 1} ? 'disabled'">
-                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number + 1})}" class="page-link">Siguiente</a>
+                          <a th:href="@{${baseUrl}(page=${listaSolicitudes.number + 1}, nombre=${param.nombre})}" class="page-link">Siguiente</a>
                       </li>
                   </ul>
               </nav>
