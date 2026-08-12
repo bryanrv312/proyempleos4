@@ -1,0 +1,194 @@
+/* NAVBAR */
+
+.custom-navbar{
+
+    background: rgba(15, 23, 42, 0.88);
+
+    backdrop-filter: blur(12px);
+
+    padding: 16px 0;
+
+    transition: all 0.3s ease;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* LOGO */
+
+.brand-logo{
+
+    font-size: 1.6rem;
+
+    font-weight: 700;
+
+    color: white !important;
+
+    letter-spacing: 1px;
+}
+
+/* LINKS */
+
+.custom-link{
+
+    color: rgba(255,255,255,0.85) !important;
+
+    font-weight: 500;
+
+    margin: 0 10px;
+
+    transition: all 0.3s ease;
+
+    position: relative;
+}
+
+.custom-link:hover{
+
+    color: white !important;
+}
+
+/* UNDERLINE EFFECT */
+
+.custom-link::after{
+
+    content: '';
+
+    position: absolute;
+
+    width: 0;
+
+    height: 2px;
+
+    left: 0;
+
+    bottom: -4px;
+
+    background: #3b82f6;
+
+    transition: 0.3s;
+}
+
+.custom-link:hover::after{
+
+    width: 100%;
+}
+
+/* BUTTONS */
+
+.btn-login{
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    color: white;
+
+    border-radius: 12px;
+
+    padding: 10px 22px;
+
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+.btn-login:hover{
+
+    background: rgba(255,255,255,0.1);
+
+    color: white;
+}
+
+/* REGISTER */
+
+.btn-register{
+
+    background: #2563eb;
+
+    color: white;
+
+    border-radius: 12px;
+
+    padding: 10px 22px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.btn-register:hover{
+
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+
+    color: white;
+}
+
+/* USER */
+
+.user-box{
+
+    background: rgba(255,255,255,0.08);
+
+    padding: 8px 15px;
+
+    border-radius: 14px;
+}
+
+.welcome-text{
+
+    display: block;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 0.75rem;
+}
+
+.user-name{
+
+    color: white;
+
+    font-weight: 600;
+}
+
+/* LOGOUT */
+
+.btn-logout{
+
+    background: #ef4444;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 8px 18px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.btn-logout:hover{
+
+    background: #dc2626;
+
+    color: white;
+}
+
+/* MOBILE */
+
+@media(max-width: 991px){
+
+    .navbar-nav{
+
+        margin-top: 20px;
+    }
+
+    .custom-link{
+
+        margin: 10px 0;
+    }
+
+    .user-box{
+
+        margin-top: 20px;
+    }
+}

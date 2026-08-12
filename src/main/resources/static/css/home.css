@@ -1,0 +1,134 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-color: #f5f7fb;
+}
+
+/* HERO */
+.hero-section{
+    position: relative;
+
+    background:
+            linear-gradient(
+                    rgba(15, 23, 42, 0.75),
+                    rgba(37, 99, 235, 0.75)),
+            url('/images/trabajoPortadaHome.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 120px 0;
+    color: white;
+}
+.hero-title{
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+.hero-subtitle{
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 35px;
+}
+.search-box{
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+}
+.search-box .form-control,
+.search-box .custom-select{
+    height: 50px;
+    border-radius: 12px;
+    border: 1px solid #dbe2ea;
+}
+.btn-search{
+    height: 50px;
+    border-radius: 12px;
+    padding: 0 30px;
+    font-weight: 600;
+    background: #2563eb;
+    border: none;
+    transition: 0.3s;
+}
+.btn-search:hover{
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* TITULOS */
+.section-title{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+.section-subtitle{
+    color: #64748b;
+    margin-bottom: 40px;
+}
+
+/* CARDS */
+.job-card{
+    border: none;
+    border-radius: 22px;
+    overflow: hidden;
+    transition: all 0.35s ease;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    height: 100%;
+}
+.job-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+.job-image{
+    height: 220px;
+    object-fit: cover;
+}
+.job-card .card-body{
+    padding: 25px;
+}
+.job-title{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+.job-info{
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 8px;
+}
+.job-description{
+    color: #64748b;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+.btn-details{
+    border-radius: 12px;
+    padding: 10px 22px;
+    font-weight: 600;
+}
+
+/* ALERTAS */
+.alert{
+    border-radius: 12px;
+}
+
+/* SECCION DESTACADOS */
+.jobs-section{
+    background: #f8fafc;
+}
+.job-card-modern{
+    transition: all .3s ease;
+}
+.job-card-modern:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.12) !important;
+}
+.job-image-modern{
+    height: 230px;
+    object-fit: cover;
+}
