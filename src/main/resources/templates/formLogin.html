@@ -19,10 +19,10 @@
   <body>
 
     <header th:insert="~{fragments/menu :: menu-principal}">
-		
+
 	</header>
 
-    <main role="main">     
+    <main role="main">
       <hr>
       <div class="container">
 
@@ -46,7 +46,7 @@
 
                   <img class="mb-4 rounded mx-auto d-block" th:src="@{/images/lock.png}" alt="" width="128" height="128">
                   <h4 class="h3 mb-3 font-weight-normal">Ingresar</h4>
-                  
+
                   <label for="username" class="sr-only">Username</label>
                   <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus><br>
                   <label for="password" class="sr-only">Password</label>
@@ -60,7 +60,7 @@
                   <ul>
                     <li><strong>User: </strong>luis</li>
                     <li><strong>Pass: </strong>luis123</li>
-                  </ul>   
+                  </ul>
                   <strong>PERFIL GERENTE</strong>
                   <ul>
                     <li><strong>User: </strong>marisol</li>
@@ -68,9 +68,9 @@
                   </ul>
                   -->
                 </div>
-                <div class="col-md-4"> 
+                <div class="col-md-4">
                 </div>
-              </div>   
+              </div>
             </form>
           </div>
         </div>
@@ -86,6 +86,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script th:src="@{bootstrap/js/bootstrap.min.js}"></script>     
+    <script th:src="@{bootstrap/js/bootstrap.min.js}"></script>
   </body>
 </html>

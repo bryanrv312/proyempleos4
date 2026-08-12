@@ -1,0 +1,13 @@
+.btn-gradient {
+    background: linear-gradient(135deg, #0d6efd, #20c997);
+    color: #fff;
+    border: none;
+}
+.btn-gradient:hover {
+    opacity: 0.9;
+}
+.alert-danger {
+    background: linear-gradient(135deg, #dc3545, #ff6b6b);
+    color: #fff;
+    border: none;
+}

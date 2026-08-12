@@ -1,7 +1,101 @@
-<div th:fragment="pie-pagina" class="container">
-			<p>
-				&copy; 2024 EmpleosApp, Inc. | WebApp Desarrollada con Spring Boot
-				3.1.1 | Autor: Bryan Rubio Valverde | &middot; <a
-					href="#">Privacy</a> &middot; <a href="#">Terms</a>
+<!--<div th:fragment="pie-pagina" class="container">-->
+<!--			<p>-->
+<!--				&copy; 2024 EmpleosApp, Inc. | WebApp Desarrollada con Spring Boot-->
+<!--				3.1.1 | Autor: Bryan Rubio Valverde | &middot; <a-->
+<!--					href="#">Privacy</a> &middot; <a href="#">Terms</a>-->
+<!--			</p>-->
+<!--		</div>-->
+
+<footer th:fragment="pie-pagina"
+		class="bg-dark text-light pt-5 pb-4 mt-5 border-top border-secondary shadow-lg">
+
+	<div class="container">
+
+		<div class="row align-items-center">
+
+			<!-- INFO -->
+			<div class="col-md-8 mb-4 mb-md-0">
+
+				<h4 class="fw-bold text-info mb-3">
+					<i class="bi bi-briefcase-fill me-2"></i>
+					EmpleosApp
+				</h4>
+
+				<p class="text-light-emphasis mb-4">
+					Plataforma web desarrollada con Spring Boot y Thymeleaf
+					para la gestión moderna de vacantes y postulaciones laborales.
+				</p>
+
+				<!-- LINKS -->
+				<div class="d-flex flex-wrap gap-4 mb-4">
+					<a href="#" class="text-decoration-none text-info fw-semibold">
+						<i class="bi bi-shield-lock-fill me-1"></i>
+						Privacy
+					</a>
+					<a href="#" class="text-decoration-none text-info fw-semibold">
+						<i class="bi bi-file-earmark-text-fill me-1"></i>
+						Terms
+					</a>
+					<a href="#" class="text-decoration-none text-info fw-semibold">
+						<i class="bi bi-envelope-fill me-1"></i>
+						Contacto
+					</a>
+				</div>
+
+				<!-- REDES -->
+				<div class="d-flex gap-3 mt-3">
+					<a href="https://github.com/"
+					   target="_blank"
+					   class="text-light fs-3 mx-2">
+						<i class="bi bi-github"></i>
+					</a>
+
+					<a href="https://wa.me/"
+					   target="_blank"
+					   class="text-success fs-3 mx-2">
+						<i class="bi bi-whatsapp"></i>
+					</a>
+
+					<a href="https://linkedin.com/"
+					   target="_blank"
+					   class="text-primary fs-3 mx-2">
+						<i class="bi bi-linkedin"></i>
+					</a>
+				</div>
+
+			</div>
+
+			<!-- AUTOR -->
+			<div class="col-md-4 text-md-end">
+				<div class="bg-dark rounded-4 p-4 border border-secondary shadow-sm">
+					<p class="mb-1 fw-semibold text-light">
+						<i class="bi bi-cpu-fill me-1"></i>
+						WebApp desarrollada con
+					</p>
+					<p class="mb-2 text-info fw-bold fs-5">
+						Spring Boot 3
+					</p>
+					<small class="text-light">
+						<i class="bi bi-person-fill me-1"></i>
+						Autor: Bryan Rubio Valverde
+					</small>
+				</div>
+			</div>
+
+
+		</div>
+
+		<hr class="border-secondary my-4">
+
+		<div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-light-emphasis">
+			<p class="mb-2 mb-md-0">
+				&copy; 2026 EmpleosApp, Inc. Todos los derechos reservados.
+			</p>
+			<p class="mb-0">
+				<i class="bi bi-bootstrap-fill me-1"></i>
+				Diseñado con Bootstrap 5
 			</p>
 		</div>
+
+	</div>
+</footer>

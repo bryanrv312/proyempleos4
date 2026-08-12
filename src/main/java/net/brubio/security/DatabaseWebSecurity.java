@@ -97,7 +97,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	protected SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
 			.requestMatchers("categorias/indexPaginate").permitAll()
-			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**", "/favicon.png").permitAll()
+			.requestMatchers("/bootstrap/**", "/images/**", "/tinymce/**", "/logos/**", "/favicon.png", "/css/**").permitAll()
 			.requestMatchers("/", "/signup", "/search","/bcrypt/**", "/vacantes/view/**").permitAll()
 			.requestMatchers("/login", "/confirmar-registro").permitAll()//para que funcione el AuthenticationFailureHandler
 			
