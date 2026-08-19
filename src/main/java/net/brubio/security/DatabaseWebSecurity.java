@@ -20,6 +20,7 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -119,6 +120,7 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 			.and()
 			.formLogin()
 			.loginPage("/login")
+			.successHandler(customSuccessHandler())  //personalizar la ruta despues del login correcto
 			.failureHandler(customFailureHandler())  // para manejar errores en el login
 			.permitAll()
 			.and()
@@ -138,6 +140,13 @@ public class DatabaseWebSecurity /*extends WebSecurityConfigurerAdapter*/{
 	protected PasswordEncoder passwordEncoder() { 
 	return new BCryptPasswordEncoder();
 	}*/
+
+	@Bean
+	public AuthenticationSuccessHandler customSuccessHandler() {
+		return (request, response, authentication) -> {
+			response.sendRedirect("/"); // redirigira a esta ruta si o si
+		};
+	}
 
 	@Bean
 	public AuthenticationFailureHandler customFailureHandler() {
