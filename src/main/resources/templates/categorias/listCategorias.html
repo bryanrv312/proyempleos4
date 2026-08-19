@@ -1,112 +1,518 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="htpp://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <link rel="icon" type="image/png" th:href="@{/favicon.png}" />-->
+
+<!--    <title>EmpleosApp | Listado de Categorías</title>-->
+<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+<!--    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
+<!--    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">-->
+<!--    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">-->
+<!--  </head>-->
+
+<!--  <body>-->
+
+<!--    <header th:insert="~{fragments/menu :: menu-principal}">-->
+
+<!--    </header>-->
+
+<!--    <main role="main">-->
+<!--      <hr>-->
+<!--      <div class="container">-->
+
+<!--        <div class="card">-->
+<!--          <h4 class="card-header"><strong>Listado de Categorías</strong></h4>-->
+<!--          <div class="card-body">-->
+<!--              <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--                  <a class="btn btn-primary" th:href="@{/categorias/create}" role="button">-->
+<!--                      <i class="fas fa-file"></i> Nueva-->
+<!--                  </a>-->
+
+<!--                  <div class="ml-5">-->
+<!--                      <p>Total registros: <span th:text="${totalResultados}"></span></p>-->
+<!--                  </div>-->
+
+<!--                  <form th:action="@{/categorias/findbyname3}" method="get">-->
+<!--                      <div class="input-group">-->
+<!--                          <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." required>-->
+<!--                          <button type="submit" class="btn btn-primary">-->
+<!--                              <i class="fas fa-search"></i> Buscar-->
+<!--                          </button>-->
+<!--                      </div>-->
+<!--                  </form>-->
+
+<!--              </div>-->
+<!--            <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>-->
+
+<!--            <table class="table table-hover">-->
+<!--              <thead class="thead-light">-->
+<!--                <tr>-->
+<!--                  <th scope="col">Id</th>-->
+<!--                  <th scope="col">Nombre</th>-->
+<!--                  <th scope="col">Descripción</th>-->
+<!--                  <th scope="col">Operaciones</th>-->
+<!--                </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--                <tr th:each="tmpCate : ${listaCategorias}">-->
+<!--                  <th th:text="${tmpCate.id}" scope="row">1</th>-->
+<!--                  <td th:text="${tmpCate.nombre}">Recursos Humanos</td>-->
+<!--                  <td th:text="${tmpCate.descripcion}">Trabajos relacionados con el area de RH.</td>-->
+<!--                  <td>-->
+<!--                    <a th:href="@{/categorias/edit/{id} (id=${tmpCate.id}) }" class="btn btn-success btn-sm" role="button" title="Editar"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>-->
+<!--                    <a th:href="@{/categorias/delete/{id} (id=${tmpCate.id}) }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar"><i class="fas fa-trash" aria-hidden="true"></i></a>-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--              </tbody>-->
+<!--            </table>-->
+
+<!--&lt;!&ndash;            <nav th:if="${listaCategorias.totalPages > 0}" aria-label="Page navigation example" >&ndash;&gt;-->
+<!--&lt;!&ndash;				<ul class="pagination"> &ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number - 1})}" class="page-link">Anterior</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number + 1})}" class="page-link">Siguiente</a></li> &ndash;&gt;-->
+<!--&lt;!&ndash;				</ul>&ndash;&gt;-->
+<!--&lt;!&ndash;			</nav>&ndash;&gt;-->
+
+<!--              <nav th:if="${listaCategorias != null and listaCategorias.totalPages > 0}" aria-label="Page navigation example">-->
+<!--                  <ul class="pagination">-->
+<!--                      &lt;!&ndash; Botón Anterior &ndash;&gt;-->
+<!--                      <li class="page-item" th:classappend="${listaCategorias.number == 0} ? 'disabled'">-->
+<!--                          <a th:href="@{${baseUrl}(page=${listaCategorias.number - 1}, nombre=${param.nombre})}" class="page-link">Anterior</a>-->
+<!--                      </li>-->
+<!--                      &lt;!&ndash; Botón Siguiente &ndash;&gt;-->
+<!--                      <li class="page-item" th:classappend="${listaCategorias.number == listaCategorias.totalPages - 1} ? 'disabled'">-->
+<!--                          <a th:href="@{${baseUrl}(page=${listaCategorias.number + 1}, nombre=${param.nombre})}" class="page-link">Siguiente</a>-->
+<!--                      </li>-->
+<!--                  </ul>-->
+<!--              </nav>-->
+
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div> &lt;!&ndash; /container &ndash;&gt;-->
+
+<!--    </main>-->
+
+<!--    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">-->
+
+<!--    </footer>-->
+
+<!--    &lt;!&ndash; Bootstrap core JavaScript-->
+<!--    ================================================== &ndash;&gt;-->
+<!--    &lt;!&ndash; Placed at the end of the document so the pages load faster &ndash;&gt;-->
+<!--    <script th:src="@{/https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>-->
+<!--    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>-->
+<!--  </body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>EmpleosApp | Listado de Categorías</title>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">-->
+<!--    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/bootstrap/icons/bootstrap-icons.css}" rel="stylesheet">-->
+<!--    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>-->
+<!--    <link rel="stylesheet" th:href="@{/css/home.css}"/>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<header th:insert="~{fragments/menu :: menu-principal}"></header>-->
+
+<!--<main class="mt-5">-->
+<!--    <div class="container py-5">-->
+
+<!--        &lt;!&ndash; HEADER &ndash;&gt;-->
+<!--        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">-->
+<!--            <div>-->
+<!--                <h2 class="fw-bold mb-1 text-dark">-->
+<!--                    <i class="bi bi-grid-fill text-primary me-2"></i>-->
+<!--                    Categorías-->
+<!--                </h2>-->
+<!--                <p class="text-muted mb-0">Gestiona las categorías disponibles del sistema.</p>-->
+<!--            </div>-->
+<!--            <a class="btn btn-primary shadow-sm px-4" th:href="@{/categorias/create}">-->
+<!--                <i class="bi bi-plus-circle me-2"></i> Nueva Categoría-->
+<!--            </a>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; CARD &ndash;&gt;-->
+<!--        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">-->
+
+<!--            &lt;!&ndash; TOP BAR &ndash;&gt;-->
+<!--            <div class="card-header bg-white border-0 py-3 px-4">-->
+<!--                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">-->
+<!--                    <h5 class="fw-semibold mb-0 text-dark">Lista de Categorías</h5>-->
+<!--                    <form th:action="@{/categorias/findbyname3}" method="get" class="position-relative">-->
+<!--                        <div class="input-group">-->
+<!--                            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>-->
+<!--                            <input type="text" name="nombre" class="form-control ps-5 rounded-3"-->
+<!--                                   placeholder="Buscar categoría..." style="width: 260px;" required>-->
+<!--                            <button type="submit" class="btn btn-secondary">-->
+<!--                                <i class="fas fa-search"></i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; TABLE &ndash;&gt;-->
+<!--            <div class="table-responsive">-->
+<!--                <table class="table align-middle table-hover mb-0">-->
+<!--                    <thead class="table-light">-->
+<!--                    <tr>-->
+<!--                        <th class="py-3 px-4 fw-semibold text-secondary">ID</th>-->
+<!--                        <th class="py-3 fw-semibold text-secondary">Nombre</th>-->
+<!--                        <th class="py-3 fw-semibold text-secondary">Descripción</th>-->
+<!--                        <th class="py-3 text-center fw-semibold text-secondary">Operaciones</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr th:each="cat : ${listaCategorias}" class="border-top">-->
+<!--                        <td class="px-4 fw-semibold text-dark" th:text="${cat.id}"></td>-->
+<!--                        <td>-->
+<!--                            <div class="d-flex align-items-center gap-3">-->
+<!--                                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center"-->
+<!--                                     style="width: 45px; height: 45px;">-->
+<!--                                    <i class="bi bi-tag-fill"></i>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <div class="fw-semibold text-dark" th:text="${cat.nombre}"></div>-->
+<!--                                    <small class="text-muted">Categoría activa</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="text-muted" style="max-width: 350px;" th:text="${cat.descripcion}"></td>-->
+<!--                        <td>-->
+<!--                            <div class="d-flex justify-content-center gap-2">-->
+<!--                                <a class="btn btn-sm btn-outline-primary rounded-pill px-3"-->
+<!--                                   th:href="@{/categorias/edit/{id}(id=${cat.id})}">-->
+<!--                                    <i class="bi bi-pencil-square me-1"></i> Editar-->
+<!--                                </a>-->
+<!--                                <a class="btn btn-sm btn-outline-danger rounded-pill px-3"-->
+<!--                                   th:href="@{/categorias/delete/{id}(id=${cat.id})}"-->
+<!--                                   onclick="return confirm('¿Estás seguro?')">-->
+<!--                                    <i class="bi bi-trash3 me-1"></i> Eliminar-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; FOOTER &ndash;&gt;-->
+<!--            <div class="card-footer bg-white border-0 py-3 px-4">-->
+<!--                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">-->
+<!--                    <small class="text-muted">-->
+<!--                        Mostrando <span th:text="${listaCategorias.numberOfElements}"></span> de-->
+<!--                        <span th:text="${listaCategorias.totalElements}"></span> categoría(s)-->
+<!--                    </small>-->
+<!--                    <nav th:if="${listaCategorias.totalPages != null and listaCategorias.getTotalPages() > 0}">-->
+<!--                        <ul class="pagination pagination-sm mb-0">-->
+<!--                            <li class="page-item" th:classappend="${listaCategorias.number==0}? 'disabled'">-->
+<!--                                <a class="page-link rounded-start-pill"-->
+<!--                                   th:href="@{${baseUrl}(page=${listaCategorias.number - 1}, nombre=${param.nombre})}">-->
+<!--                                    Anterior-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item"-->
+<!--                                th:each="page : ${#numbers.sequence(0, listaCategorias.totalPages - 1)}"-->
+<!--                                th:classappend="${page == listaCategorias.number}? 'active'">-->
+<!--                                <a class="page-link"-->
+<!--                                   th:href="@{${baseUrl}(page=${page}, nombre=${param.nombre})}"-->
+<!--                                   th:text="${page+1}"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item"-->
+<!--                                th:classappend="${listaCategorias.number == listaCategorias.totalPages - 1} ? 'disabled'">-->
+<!--                                <a th:href="@{${baseUrl}(page=${listaCategorias.number + 1}, nombre=${param.nombre})}"-->
+<!--                                   class="page-link">-->
+<!--                                    Siguiente-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+
+<!--<footer th:insert="~{fragments/footer :: pie-pagina}" class="footer"></footer>-->
+
+<!--&lt;!&ndash; Bootstrap JS &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
-
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" th:href="@{/favicon.png}" />
-
-    <title>EmpleosApp | Listado de Categorías</title>
-    <!-- Bootstrap core CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpleosApp | Categorías</title>
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
-    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
-  </head>
+    <link th:href="@{/bootstrap/icons/bootstrap-icons.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/categorias.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
 
-  <body>
+<body class="bg-light">
 
-    <header th:insert="~{fragments/menu :: menu-principal}">
+<!-- ALERTA DE REGISTRO -->
+<div th:if="${msg}" class="toast-alert">
+    <div class="toast-icon">
+        <i class="bi bi-check-lg"></i>
+    </div>
+    <div class="toast-content">
+        <strong>¡Operación exitosa!</strong>
+        <span th:text="${msg}"></span>
+    </div>
+    <button type="button" class="toast-close" onclick="cerrarAlerta()">
+        <i class="bi bi-x"></i>
+    </button>
+</div>
 
-    </header>
-
-    <main role="main">
-      <hr>
-      <div class="container">
-
-        <div class="card">
-          <h4 class="card-header"><strong>Listado de Categorías</strong></h4>
-          <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                  <a class="btn btn-primary" th:href="@{/categorias/create}" role="button">
-                      <i class="fas fa-file"></i> Nueva
-                  </a>
-
-                  <div class="ml-5">
-                      <p>Total registros: <span th:text="${totalResultados}"></span></p>
-                  </div>
-
-                  <form th:action="@{/categorias/findbyname3}" method="get">
-                      <div class="input-group">
-                          <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." required>
-                          <button type="submit" class="btn btn-primary">
-                              <i class="fas fa-search"></i> Buscar
-                          </button>
-                      </div>
-                  </form>
-
-              </div>
-            <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
-
-            <table class="table table-hover">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Operaciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="tmpCate : ${listaCategorias}">
-                  <th th:text="${tmpCate.id}" scope="row">1</th>
-                  <td th:text="${tmpCate.nombre}">Recursos Humanos</td>
-                  <td th:text="${tmpCate.descripcion}">Trabajos relacionados con el area de RH.</td>
-                  <td>
-                    <a th:href="@{/categorias/edit/{id} (id=${tmpCate.id}) }" class="btn btn-success btn-sm" role="button" title="Editar"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                    <a th:href="@{/categorias/delete/{id} (id=${tmpCate.id}) }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar"><i class="fas fa-trash" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-<!--            <nav th:if="${listaCategorias.totalPages > 0}" aria-label="Page navigation example" >-->
-<!--				<ul class="pagination"> -->
-<!--					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number - 1})}" class="page-link">Anterior</a></li>-->
-<!--					<li class="page-item"><a th:href="@{/categorias/indexPaginate(page=${listaCategorias.number + 1})}" class="page-link">Siguiente</a></li> -->
-<!--				</ul>-->
-<!--			</nav>-->
-
-              <nav th:if="${listaCategorias != null and listaCategorias.totalPages > 0}" aria-label="Page navigation example">
-                  <ul class="pagination">
-                      <!-- Botón Anterior -->
-                      <li class="page-item" th:classappend="${listaCategorias.number == 0} ? 'disabled'">
-                          <a th:href="@{${baseUrl}(page=${listaCategorias.number - 1}, nombre=${param.nombre})}" class="page-link">Anterior</a>
-                      </li>
-                      <!-- Botón Siguiente -->
-                      <li class="page-item" th:classappend="${listaCategorias.number == listaCategorias.totalPages - 1} ? 'disabled'">
-                          <a th:href="@{${baseUrl}(page=${listaCategorias.number + 1}, nombre=${param.nombre})}" class="page-link">Siguiente</a>
-                      </li>
-                  </ul>
-              </nav>
-
-          </div>
+<header th:insert="~{fragments/menu :: menu-principal}"></header>
+<br><br><br>
+<main class="mt-5 categories-page">
+    <div class="container py-5">
+        <div class="page-header mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-lg">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="page-icon">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                        </div>
+                        <div>
+                            <h1 class="page-title mb-1">
+                                Categorías
+                            </h1>
+                            <p class="page-description mb-0">
+                                Gestiona y organiza las categorías disponibles en el sistema.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-auto">
+                    <a th:href="@{/categorias/create}"
+                       class="btn btn-primary btn-create">
+                        <i class="bi bi-plus-lg me-2"></i>
+                        Nueva categoría
+                    </a>
+                </div>
+            </div>
         </div>
-      </div> <!-- /container -->
+        <div class="categories-card">
+            <!-- TOP -->
+            <div class="categories-toolbar">
+                <div>
+                    <h5 class="toolbar-title mb-1">
+                        Lista de categorías
+                    </h5>
+                    <span class="toolbar-subtitle">
+                        Administra las categorías registradas
+                    </span>
+                </div>
+                <!-- SEARCH -->
+                <form th:action="@{/categorias/findbyname3}"
+                      method="get"
+                      class="search-form">
+                    <div class="search-box">
+                        <i class="bi bi-search search-icon"></i>
+                        <input
+                                type="text"
+                                name="nombre"
+                                class="form-control search-input"
+                                placeholder="Buscar categoría..."
+                                autocomplete="off"
+                                th:value="${param.nombre}"
+                                required>
+                        <button type="submit" class="search-button">
+                            Buscar
+                        </button>
+                    </div>
+                </form>
+            </div>
 
-    </main>
+            <div class="table-responsive">
+                <table class="table categories-table align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th class="ps-4">
+                            ID
+                        </th>
+                        <th>
+                            Categoría
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                        <th class="actions-column">
+                            Acciones
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cat : ${listaCategorias}">
+                        <td class="ps-4">
+                            <span class="category-id"
+                                  th:text="'#' + ${cat.id}">
+                            </span>
+                        </td>
+                        <td>
+                            <div class="category-info">
+                                <div class="category-avatar">
+                                    <i class="bi bi-tag-fill"></i>
+                                </div>
+                                <div>
+                                    <div class="category-name"
+                                         th:text="${cat.nombre}">
+                                    </div>
+                                    <div class="category-status">
+                                        <span class="status-dot"></span>
+                                        Activa
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="category-description"
+                                 th:text="${cat.descripcion}">
+                            </div>
+                        </td>
+                        <!-- ACTIONS -->
+                        <td class="actions-column">
+                            <div class="category-actions">
+                                <!--                            <div class="category-actions">-->
+                                <a th:href="@{/categorias/edit/{id}(id=${cat.id})}"
+                                   class="action-btn action-edit"
+                                   title="Editar categoría">
+                                    <i class="bi bi-pencil"></i>
+                                    <!--                                    <span>Editar</span>-->
+                                </a>
+                                <a th:href="@{/categorias/delete/{id}(id=${cat.id})}"
+                                   class="action-btn action-delete"
+                                   title="Eliminar categoría"
+                                   onclick="return confirm('¿Estás seguro de eliminar esta categoría?')">
+                                    <i class="bi bi-trash3"></i>
+                                    <!--                                    <span>Eliminar</span>-->
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- ================================================= -->
+                    <!-- EMPTY STATE -->
+                    <!-- ================================================= -->
+                    <tr th:if="${listaCategorias.empty}">
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="bi bi-inbox"></i>
+                                </div>
+                                <h5>
+                                    No hay categorías
+                                </h5>
+                                <p>
+                                    Todavía no existen categorías que coincidan.
+                                </p>
+                                <a th:href="@{/categorias/create}"
+                                   class="btn btn-primary">
+                                    <i class="bi bi-plus-lg me-2"></i>
+                                    Crear categoría
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- ================================================= -->
+            <!-- FOOTER -->
+            <!-- ================================================= -->
+            <div class="categories-footer">
+                <div class="results-info">
+                    <span class="results-label">Registros
+                    </span>
+                    <strong th:text="${listaCategorias.numberOfElements}"></strong>
+                    <span>de</span>
+                    <strong th:text="${listaCategorias.totalElements}">
+                    </strong>
+                </div>
 
-    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
+                <!-- PAGINATION -->
+                <nav th:if="${listaCategorias.totalPages != null and listaCategorias.totalPages > 0}">
+                    <ul class="pagination custom-pagination mb-0">
+                        <!-- PREVIOUS -->
+                        <li class="page-item" th:classappend="${listaCategorias.number == 0} ? 'disabled'">
+                            <a class="page-link" th:href="@{${baseUrl}(page=${listaCategorias.number - 1}, nombre=${param.nombre})}">
+                                <i class="bi bi-chevron-left"></i>
+                            </a>
+                        </li>
+                        <!-- PAGES -->
+                        <li class="page-item" th:each="page : ${#numbers.sequence(0, listaCategorias.totalPages - 1)}"
+                                th:classappend="${page == listaCategorias.number} ? 'active'">
+                            <a class="page-link" th:href="@{${baseUrl}(page=${page}, nombre=${param.nombre})}" th:text="${page + 1}">
+                            </a>
+                        </li>
+                        <!-- NEXT -->
+                        <li class="page-item" th:classappend="${listaCategorias.number == listaCategorias.totalPages - 1} ? 'disabled'">
+                            <a class="page-link" th:href="@{ ${baseUrl} (page=${listaCategorias.number + 1}, nombre=${param.nombre})}">
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</main>
 
-    </footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script th:src="@{/https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
-  </body>
+<footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function cerrarAlerta() {
+        const alerta = document.querySelector('.toast-alert');
+
+        if (alerta) {
+            alerta.classList.add('ocultar');
+
+            setTimeout(() => {
+                alerta.remove();
+            }, 350);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const alerta = document.querySelector('.toast-alert');
+
+        if (alerta) {
+            setTimeout(() => {
+                cerrarAlerta();
+            }, 4000);
+        }
+    });
+</script>
+
+</body>
 </html>

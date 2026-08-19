@@ -14,25 +14,24 @@
     <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
     <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
   </head>
 
   <body>
 
     <header th:insert="~{fragments/menu :: menu-principal}">
-      
-    </header>  
+    </header>
 
-    <main role="main">     
-      <hr>
-      <div class="container"> 
+    <br><br><br>
 
+    <main role="main">
+      <div class="container">
         <div class="card">
           <h4 class="card-header"><strong>Listado de Usuarios</strong></h4>              
           <div class="card-body">            
             <hr>
-            
             <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
-            
             <table class="table table-hover">
               <thead class="thead-light">
                 <tr>
@@ -55,18 +54,14 @@
                     <a th:href="@{/usuarios/enable/{id} (id=${tmpUsu.id})}" onclick="return confirm('¿Desea desbloquear el usuario?')" class="btn btn-success btn-sm" role="button" title="Permitir el acceso al sistema a este usuario."><i class="fas fa-unlock" aria-hidden="true"></i></a>
                   </td>
                 </tr>
-                
-                                               
               </tbody>
             </table>
-
             <nav th:if="${listaUsuarios.totalPages > 0}" aria-label="Page navigation example" >
               <ul class="pagination">
                 <li class="page-item"><a th:href="@{/usuarios/indexPaginate(page=${listaUsuarios.number - 1})}" class="page-link">Anterior</a></li>
                 <li class="page-item"><a th:href="@{/usuarios/indexPaginate(page=${listaUsuarios.number + 1})}" class="page-link">Siguiente</a></li>
               </ul>
             </nav>
-            
           </div>
         </div>
       </div> <!-- /container -->

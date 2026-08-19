@@ -1,104 +1,537 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="htpp://www.thymeleaf.org">-->
+
+<!--  <head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <link rel="icon" type="image/png" th:href="@{/favicon.png}" />-->
+
+<!--    <title>EmpleosApp | Listado de Ofertas de Trabajo</title>-->
+<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+<!--    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
+<!--    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">-->
+<!--    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">-->
+<!--  </head>-->
+
+<!--  <body>-->
+<!--    <header th:insert="~{fragments/menu :: menu-principal}">-->
+<!--      -->
+<!--    </header>  -->
+
+<!--    <main role="main">     -->
+<!--      <hr>-->
+<!--      <div class="container"> -->
+
+<!--        <div class="card">-->
+<!--          <h4 class="card-header"><strong>Listado de Ofertas de Trabajo</strong></h4>-->
+<!--          <div class="card-body">-->
+<!--            <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--              <a class="btn btn-primary" th:href="@{/vacantes/create}" title="Crear nueva Oferta de Trabajo" role="button">-->
+<!--                <i class="fas fa-file" aria-hidden="true"></i> Nueva-->
+<!--              </a>-->
+
+<!--              <div class="ml-5">-->
+<!--                <p>Total registros: <span th:text="${totalResultados}"></span></p>-->
+<!--              </div>-->
+
+<!--              <form th:action="@{/vacantes/findByName}" method="get">-->
+<!--                <div class="input-group">-->
+<!--                  <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." required>-->
+<!--                  <button type="submit" class="btn btn-primary">-->
+<!--                    <i class="fas fa-search"></i> Buscar-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </form>-->
+<!--            </div>-->
+
+<!--            <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>-->
+<!--            -->
+<!--            <table class="table table-hover">-->
+<!--              <thead class="thead-light">-->
+<!--                <tr>-->
+<!--                  <th scope="col">Categoría</th>-->
+<!--                  <th scope="col">Nombre</th>                  -->
+<!--                  <th scope="col">Fecha Pub.</th>-->
+<!--                  <th scope="col">Estatus</th>-->
+<!--                  <th scope="col">Destacada</th>-->
+<!--                  <th scope="col">Operaciones</th>-->
+<!--                </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--                <tr th:each="tmpVac : ${listaVacantes}">-->
+<!--                  <td th:text="${tmpVac.categoria.nombre}">Ventas</td>-->
+<!--                  <td th:text="${tmpVac.nombre}">Supervisor de Ventas</td>                  -->
+<!--                  <td th:text="${tmpVac.fecha}">11-01-2019</td>-->
+<!--                  <td th:text="${tmpVac.estatus}">Creada</td>-->
+<!--                  <td th:text="${tmpVac.destacado == 1 ? 'SI' : 'NO' }">SI</td>-->
+<!--                  <td>-->
+<!--                    <a th:href="@{/vacantes/edit/{id} (id=${tmpVac.id})  }" class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>-->
+<!--                    <a th:href="@{/vacantes/delete/{id} (id=${tmpVac.id})  }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>-->
+<!--                  </td>-->
+<!--                </tr>-->
+<!--                            -->
+<!--              </tbody>-->
+<!--            </table>-->
+<!--            -->
+<!--            <nav th:if="${listaVacantes.totalPages > 0}" aria-label="Page navigation example" >-->
+<!--				<ul class="pagination"> -->
+<!--					<li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number - 1})}" class="page-link">Anterior</a></li>-->
+<!--					<li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number + 1})}" class="page-link">Siguiente</a></li> -->
+<!--				</ul>-->
+<!--			</nav>-->
+
+<!--            -->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div> &lt;!&ndash; /container &ndash;&gt;-->
+
+<!--    </main>-->
+
+<!--    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">-->
+
+<!--    </footer>-->
+
+<!--    &lt;!&ndash; Bootstrap core JavaScript-->
+<!--    ================================================== &ndash;&gt;-->
+<!--    &lt;!&ndash; Placed at the end of the document so the pages load faster &ndash;&gt;-->
+<!--    <script th:src="@{/https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>-->
+<!--    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     -->
+<!--  </body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <title>EmpleosApp | Vacantes</title>-->
+<!--  <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">-->
+<!--  <link th:href="@{/bootstrap/icons/bootstrap-icons.css}" rel="stylesheet">-->
+<!--  <link rel="stylesheet" th:href="@{/css/navbar.css}"/>-->
+<!--  <link rel="stylesheet" th:href="@{/css/home.css}"/>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<header th:insert="~{fragments/menu :: menu-principal}"></header>-->
+<!--<main class="mt-5">-->
+<!--  <div class="container py-5">-->
+
+<!--    &lt;!&ndash; HEADER &ndash;&gt;-->
+<!--    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">-->
+<!--      <div>-->
+<!--        <h2 class="fw-bold mb-1 text-dark">-->
+<!--          <i class="bi bi-briefcase-fill text-primary me-2"></i>-->
+<!--          Vacantes-->
+<!--        </h2>-->
+<!--        <p class="text-muted mb-0">Gestiona las vacantes disponibles del sistema.</p>-->
+<!--      </div>-->
+<!--      <a class="btn btn-primary shadow-sm px-4" th:href="@{/vacantes/create}">-->
+<!--        <i class="bi bi-plus-circle me-2"></i> Nueva Vacante-->
+<!--      </a>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; CARD &ndash;&gt;-->
+<!--    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">-->
+
+<!--      &lt;!&ndash; TOP BAR &ndash;&gt;-->
+<!--      <div class="card-header bg-white border-0 py-3 px-4">-->
+<!--        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">-->
+<!--          <h5 class="fw-semibold mb-0 text-dark">Lista de Vacantes</h5>-->
+<!--          <form th:action="@{/vacantes/findByName}" method="get" class="position-relative">-->
+<!--            <div class="input-group">-->
+<!--              <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>-->
+<!--              <input type="text" name="nombre" class="form-control ps-5 rounded-3"-->
+<!--                     placeholder="Buscar vacante..." style="width: 260px;" required>-->
+<!--              <button type="submit" class="btn btn-secondary">-->
+<!--                <i class="fas fa-search"></i> Buscar-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; TABLE &ndash;&gt;-->
+<!--      <div class="table-responsive">-->
+<!--        <table class="table align-middle table-hover mb-0">-->
+<!--          <thead class="table-light">-->
+<!--          <tr>-->
+<!--            <th class="py-3 px-4 fw-semibold text-secondary">Imagen</th>-->
+<!--            <th class="py-3 px-4 fw-semibold text-secondary">Categoría</th>-->
+<!--            <th class="py-3 fw-semibold text-secondary">Vacante</th>-->
+<!--            <th class="py-3 fw-semibold text-secondary">Fecha Pub.</th>-->
+<!--            <th class="py-3 fw-semibold text-secondary">Estado</th>-->
+<!--            <th class="py-3 fw-semibold text-secondary">Destacado</th>-->
+<!--            <th class="py-3 text-center fw-semibold text-secondary">Operaciones</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr th:each="vac : ${listaVacantes}" class="border-top">-->
+<!--            <td class="px-4">-->
+<!--              <img th:src="@{${vac.imagen}}" alt="Imagen de la vacante" width="100" height="80">-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <div class="d-flex align-items-center gap-2">-->
+<!--                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center"-->
+<!--                     style="width: 40px; height: 40px;">-->
+<!--                  <i class="bi bi-tag-fill"></i>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <div class="fw-semibold text-dark" th:text="${vac.categoria.nombre}"></div>-->
+<!--                  <small class="text-muted">Categoría activa</small>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <div class="fw-semibold text-dark" th:text="${vac.nombre}"></div>-->
+<!--              <small class="text-muted" th:text="${vac.descripcion}"></small>-->
+<!--            </td>-->
+<!--            <td class="text-muted" th:text="${#dates.format(vac.fecha,'dd/MM/yyyy')}"></td>-->
+<!--            <td>-->
+<!--              <span class="badge rounded-pill text-bg-success px-3 py-2" th:text="${vac.estatus}"></span>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <span class="badge rounded-pill text-bg-warning px-3 py-2"-->
+<!--                      th:text="${vac.destacado == 1 ? 'Sí' : 'No'}"></span>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              <div class="d-flex justify-content-center gap-2">-->
+<!--                <a class="btn btn-sm btn-outline-primary rounded-pill px-3"-->
+<!--                   th:href="@{/vacantes/edit/{id}(id=${vac.id})}">-->
+<!--                  <i class="bi bi-pencil-square me-1"></i> Editar-->
+<!--                </a>-->
+<!--                <a class="btn btn-sm btn-outline-danger rounded-pill px-3"-->
+<!--                   th:href="@{/vacantes/delete/{id}(id=${vac.id})}"-->
+<!--                   onclick="return confirm('¿Estás seguro?')">-->
+<!--                  <i class="bi bi-trash3 me-1"></i> Eliminar-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; FOOTER &ndash;&gt;-->
+<!--      <div class="card-footer bg-white border-0 py-3 px-4">-->
+<!--        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">-->
+
+<!--          <small class="text-muted">-->
+<!--            Mostrando <span th:text="${listaVacantes.numberOfElements}"></span> vacante(s) de-->
+<!--            <span th:text="${listaVacantes.totalElements}">vacante(s)</span>-->
+<!--          </small>-->
+<!--&lt;!&ndash;          <nav th:if="${listaVacantes.totalPages > 0}" aria-label="Page navigation example" >&ndash;&gt;-->
+<!--&lt;!&ndash;            <ul class="pagination">&ndash;&gt;-->
+<!--&lt;!&ndash;              <li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number - 1})}" class="page-link">Anterior</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;              <li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number + 1})}" class="page-link">Siguiente</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;          </nav>&ndash;&gt;-->
+<!--          <nav th:if="${listaVacantes.totalPages > 1}">-->
+<!--            <ul class="pagination pagination-sm mb-0">-->
+<!--              <li class="page-item" th:classappend="${listaVacantes.first}? 'disabled'">-->
+<!--                <a class="page-link rounded-start-pill"-->
+<!--                   th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number - 1})}">Anterior</a>-->
+<!--              </li>-->
+<!--              <li class="page-item" th:each="page : ${#numbers.sequence(0, listaVacantes.totalPages - 1)}"-->
+<!--                  th:classappend="${page == listaVacantes.number}? 'active'">-->
+<!--                <a class="page-link" th:href="@{/vacantes/indexPaginate(page=${page})}" th:text="${page+1}"></a>-->
+<!--              </li>-->
+<!--              <li class="page-item" th:classappend="${listaVacantes.last}? 'disabled'">-->
+<!--                <a class="page-link rounded-end-pill"-->
+<!--                   th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number + 1})}">Siguiente</a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </nav>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</main>-->
+
+<!--<footer th:insert="~{fragments/footer :: pie-pagina}" class="footer"></footer>-->
+
+<!--<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html xmlns:th="htpp://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpleosApp | Vacantes</title>
+  <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/bootstrap/icons/bootstrap-icons.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+  <link rel="stylesheet" th:href="@{/css/home.css}">
+  <link rel="stylesheet" th:href="@{/css/categorias.css}"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" th:href="@{/favicon.png}" />
+<body class="bg-light">
 
-    <title>EmpleosApp | Listado de Ofertas de Trabajo</title>
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
-    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
-  </head>
+<!-- ALERTA DE REGISTRO -->
+<div th:if="${msg}" class="toast-alert">
+  <div class="toast-icon">
+    <i class="bi bi-check-lg"></i>
+  </div>
+  <div class="toast-content">
+    <strong>¡Operación exitosa!</strong>
+    <span th:text="${msg}"></span>
+  </div>
+  <button type="button" class="toast-close" onclick="cerrarAlerta()">
+    <i class="bi bi-x"></i>
+  </button>
+</div>
 
-  <body>
-    <header th:insert="~{fragments/menu :: menu-principal}">
-      
-    </header>  
-
-    <main role="main">     
-      <hr>
-      <div class="container"> 
-
-        <div class="card">
-          <h4 class="card-header"><strong>Listado de Ofertas de Trabajo</strong></h4>
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <a class="btn btn-primary" th:href="@{/vacantes/create}" title="Crear nueva Oferta de Trabajo" role="button">
-                <i class="fas fa-file" aria-hidden="true"></i> Nueva
-              </a>
-
-              <div class="ml-5">
-                <p>Total registros: <span th:text="${totalResultados}"></span></p>
-              </div>
-
-              <form th:action="@{/vacantes/findByName}" method="get">
-                <div class="input-group">
-                  <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre..." required>
-                  <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Buscar
-                  </button>
-                </div>
-              </form>
+<header th:insert="~{fragments/menu :: menu-principal}"></header>
+<br><br><br>
+<main class="mt-5 categories-page">
+  <div class="container py-5">
+    <div class="page-header mb-4">
+      <div class="row align-items-center g-4">
+        <div class="col-lg">
+          <div class="d-flex align-items-center gap-3">
+            <div class="page-icon">
+              <i class="bi bi-briefcase-fill"></i>
             </div>
-
-            <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
-            
-            <table class="table table-hover">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Categoría</th>
-                  <th scope="col">Nombre</th>                  
-                  <th scope="col">Fecha Pub.</th>
-                  <th scope="col">Estatus</th>
-                  <th scope="col">Destacada</th>
-                  <th scope="col">Operaciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="tmpVac : ${listaVacantes}">
-                  <td th:text="${tmpVac.categoria.nombre}">Ventas</td>
-                  <td th:text="${tmpVac.nombre}">Supervisor de Ventas</td>                  
-                  <td th:text="${tmpVac.fecha}">11-01-2019</td>
-                  <td th:text="${tmpVac.estatus}">Creada</td>
-                  <td th:text="${tmpVac.destacado == 1 ? 'SI' : 'NO' }">SI</td>
-                  <td>
-                    <a th:href="@{/vacantes/edit/{id} (id=${tmpVac.id})  }" class="btn btn-success btn-sm" role="button" title="Editar el registro."><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
-                    <a th:href="@{/vacantes/delete/{id} (id=${tmpVac.id})  }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
-                  </td>
-                </tr>
-                            
-              </tbody>
-            </table>
-            
-            <nav th:if="${listaVacantes.totalPages > 0}" aria-label="Page navigation example" >
-				<ul class="pagination"> 
-					<li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number - 1})}" class="page-link">Anterior</a></li>
-					<li class="page-item"><a th:href="@{/vacantes/indexPaginate(page=${listaVacantes.number + 1})}" class="page-link">Siguiente</a></li> 
-				</ul>
-			</nav>
-
-            
+            <div>
+              <h1 class="page-title mb-1">
+                Vacantes
+              </h1>
+              <p class="page-description mb-0">
+                Gestiona las vacantes disponibles en el sistema.
+              </p>
+            </div>
           </div>
         </div>
-      </div> <!-- /container -->
+        <div class="col-lg-auto">
+          <a th:href="@{/vacantes/create}" class="btn btn-primary btn-create">
+            <i class="bi bi-plus-lg me-2"></i> Nueva vacante
+          </a>
+        </div>
+      </div>
+    </div>
 
-    </main>
+    <div class="categories-card">
+      <!-- TOP -->
+      <div class="categories-toolbar">
+        <div>
+          <h5 class="toolbar-title mb-1">
+            Lista de vacantes
+          </h5>
+          <span class="toolbar-subtitle">
+              Administra las vacantes registradas
+          </span>
+        </div>
+        <!-- SEARCH -->
+        <form th:action="@{/vacantes/findByName}"
+              method="get"
+              class="search-form">
+          <div class="search-box">
+            <i class="bi bi-search search-icon"></i>
+            <input
+                    type="text"
+                    name="nombre"
+                    class="form-control search-input"
+                    placeholder="Buscar vacante..."
+                    autocomplete="off"
+                    th:value="${param.nombre}"
+                    required>
+            <button type="submit" class="search-button">
+              Buscar
+            </button>
+          </div>
+        </form>
+      </div>
 
-    <footer th:insert="~{fragments/footer :: pie-pagina}" class="footer">
+      <div class="table-responsive">
+        <table class="table categories-table align-middle mb-0">
+          <thead>
+          <tr>
+            <th class="ps-4">Imagen</th>
+            <th>Categoría</th>
+            <th>Vacante</th>
+            <th>Estado</th>
+            <th>Fecha Pub.</th>
+            <th>Destacado</th>
+            <th class="actions-column">Acciones</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="vac : ${listaVacantes}">
+            <td class="ps-4">
+              <img th:src="@{${vac.imagen}}" alt="Imagen de la vacante" width="100" height="80">
+            </td>
 
-    </footer>
+            <td>
+              <div class="category-info">
+                <div class="category-avatar">
+                  <i class="bi bi-tag-fill"></i>
+                </div>
+                <div>
+                  <div class="category-name" th:text="${vac.categoria.nombre}"></div>
+                  <div class="category-status">
+                    <span class="status-dot"></span>
+                    Categoría activa
+                  </div>
+                </div>
+              </div>
+            </td>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script th:src="@{/https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>     
-  </body>
-</html>
+            <td>
+              <div class="category-name" th:text="${vac.nombre}"></div>
+              <div class="category-description" th:text="${vac.descripcion}"></div>
+            </td>
+
+            <!-- ESTADO -->
+            <td>
+              <span th:switch="${vac.estatus}">
+                <span th:case="'Aprobada'" class="status-inline status-approved">
+                  <span class="status-dot"></span>
+                  <span>Aprobada</span>
+                </span>
+                <span th:case="'Creada'" class="status-inline status-created">
+                  <span class="status-dot"></span>
+                  <span>Creada</span>
+                </span>
+                <span th:case="'Eliminada'" class="status-inline status-deleted">
+                  <span class="status-dot"></span>
+                  <span>Eliminada</span>
+                </span>
+                <span th:case="*" class="status-inline status-default">
+                  <span class="status-dot"></span>
+                  <span th:text="${vac.estatus}"></span>
+                </span>
+              </span>
+            </td>
+
+            <!-- FECHA -->
+            <td>
+              <div class="publication-date">
+                <span class="status-dot"></span>
+                <i class="bi bi-calendar3"></i>
+                <span th:text="${#dates.format(vac.fecha,'dd/MM/yyyy')}"></span>
+              </div>
+            </td>
+
+            <!-- DESTACADO -->
+            <td>
+              <span class="status-inline"
+                    th:classappend="${vac.destacado == 1} ? ' featured-yes' : ' featured-no'">
+                <span class="status-dot"></span>
+                <span th:text="${vac.destacado == 1 ? 'Sí' : 'No'}"></span>
+              </span>
+            </td>
+
+            <!-- ACCIONES -->
+            <td class="actions-column">
+              <div class="category-actions">
+                <a th:href="@{/vacantes/edit/{id}(id=${vac.id})}"
+                   class="action-btn action-edit"
+                   title="Editar vacante">
+                  <i class="bi bi-pencil"></i>
+                </a>
+
+                <a th:href="@{/vacantes/delete/{id}(id=${vac.id})}"
+                   class="action-btn action-delete"
+                   title="Eliminar vacante"
+                   onclick="return confirm('¿Estás seguro de eliminar esta vacante?')">
+                  <i class="bi bi-trash3"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+
+          <tr th:if="${listaVacantes.empty}">
+            <td colspan="7">
+              <div class="empty-state">
+                <div class="empty-icon">
+                  <i class="bi bi-inbox"></i>
+                </div>
+                <h5>No hay vacantes</h5>
+                <p>Todavía no existen vacantes que coincidan.</p>
+                <a th:href="@{/vacantes/create}" class="btn btn-primary">
+                  <i class="bi bi-plus-lg me-2"></i>
+                  Crear vacante
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="categories-footer">
+        <div class="results-info">
+          <span class="results-label">Registros</span>
+          <strong th:text="${listaVacantes.numberOfElements}"></strong>
+          <span>de</span>
+          <strong th:text="${listaVacantes.totalElements}"></strong>
+        </div>
+
+        <!-- PAGINATION -->
+        <nav th:if="${listaVacantes.totalPages != null and listaVacantes.totalPages > 0}">
+          <ul class="pagination custom-pagination mb-0">
+            <!-- PREVIOUS -->
+            <li class="page-item" th:classappend="${listaVacantes.number == 0} ? 'disabled'">
+              <a class="page-link"
+                 th:href="@{ ${baseUrl} (page=${listaVacantes.number - 1}, nombre=${param.nombre})}">
+                <i class="bi bi-chevron-left"></i>
+              </a>
+            </li>
+            <!-- PAGES -->
+            <li class="page-item"
+                th:each="page : ${#numbers.sequence(0, listaVacantes.totalPages - 1)}"
+                th:classappend="${page == listaVacantes.number} ? 'active'">
+              <a class="page-link"
+                 th:href="@{ ${baseUrl} (page=${page}, nombre=${param.nombre})}"
+                 th:text="${page + 1}"></a>
+            </li>
+            <!-- NEXT -->
+            <li class="page-item" th:classappend="${listaVacantes.number == listaVacantes.totalPages - 1} ? 'disabled'">
+              <a class="page-link"
+                 th:href="@{ ${baseUrl}  (page=${listaVacantes.number + 1}, nombre=${param.nombre})}">
+                <!--                 th:href="@{ ${baseUrl} (page=${listaVacantes.number + 1}, nombre=${param.nombre})}">-->
+                <i class="bi bi-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:insert="~{fragments/footer :: pie-pagina}" class="footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function cerrarAlerta() {
+    const alerta = document.querySelector('.toast-alert');
+
+    if (alerta) {
+      alerta.classList.add('ocultar');
+
+      setTimeout(() => {
+        alerta.remove();
+      }, 350);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const alerta = document.querySelector('.toast-alert');
+
+    if (alerta) {
+      setTimeout(() => {
+        cerrarAlerta();
+      }, 4000);
+    }
+  });
+</script>

@@ -56,6 +56,7 @@ public class VacantesController {
 		Page<Vacante> lista = serviceVacantes.buscarTodas(page);
 		model.addAttribute("listaVacantes", lista);
 		model.addAttribute("totalResultados", lista.getTotalElements());
+		model.addAttribute("baseUrl", "/vacantes/indexPaginate");
 		/*System.out.println("NUM de vacantes por Pagina: " + lista.getSize() + " - " + page);
 		for(Vacante v:lista) {
 			System.out.println(v.getNombre());
