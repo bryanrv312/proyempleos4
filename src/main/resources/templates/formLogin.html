@@ -101,8 +101,63 @@
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" th:href="@{/css/login.css}"/>
+  <link rel="stylesheet" th:href="@{/css/list-form.css}"/>
 </head>
+
 <body>
+
+<div class="toast-container">
+  <!-- ALERTA DE REGISTRO -->
+  <div th:if="${msg}" class="toast-alert success">
+    <div class="toast-icon">
+      <i class="bi bi-check-lg"></i>
+    </div>
+    <div class="toast-content">
+      <strong>¡Operación exitosa!</strong>
+      <span th:text="${msg}"></span>
+    </div>
+    <button type="button" class="toast-close" onclick="cerrarAlerta(this.closest('.toast-alert'))">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+  <!--FALTA CONFIRMACION DE CORREO-->
+  <div th:if="${param.confirmado}" class="toast-alert confirmado">
+    <div class="toast-icon">
+      <i class="bi bi-envelope-exclamation"></i>
+    </div>
+    <div class="toast-content">
+      <strong>Confirmación pendiente</strong>
+      <span>Por favor, confirma tu correo electrónico para activar tu cuenta.</span>
+    </div>
+    <button type="button" class="toast-close" onclick="cerrarAlerta(this.closest('.toast-alert'))">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+  <!--CUENTA BLOQUEADA-->
+  <div th:if="${param.blocked}" class="toast-alert blocked">
+    <div class="toast-icon"><i class="bi bi-lock"></i></div>
+    <div class="toast-content">
+      <strong>Cuenta bloqueada</strong>
+      <span>Su cuenta está bloqueada</span>
+    </div>
+    <button class="toast-close" onclick="this.closest('.toast-alert').classList.add('ocultar')">&times;</button>
+<!--    <button type="button" class="toast-close" onclick="cerrarAlerta(this.closest('.toast-alert'))">-->
+<!--      <i class="bi bi-x"></i>-->
+<!--    </button>-->
+  </div>
+  <!--ERROR DE AUTENTICACION-->
+  <div th:if="${param.error}" class="toast-alert error">
+    <div class="toast-icon"><i class="bi bi-x-circle"></i></div>
+    <div class="toast-content">
+      <strong>Error de autenticación</strong>
+      <span>Credenciales incorrectas</span>
+    </div>
+    <button type="button" class="toast-close" onclick="cerrarAlerta(this.closest('.toast-alert'))">
+      <i class="bi bi-x"></i>
+    </button>
+  </div>
+</div>
+
 
 <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center bg-light">
 
@@ -193,15 +248,15 @@
         </form>
 
         <!-- Mensajes de error -->
-        <div th:if="${param.error}" class="alert alert-danger rounded-3 shadow-sm mt-3 text-center fw-semibold">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i> Credenciales incorrectas
-        </div>
-        <div th:if="${param.blocked}" class="alert alert-warning rounded-3 shadow-sm mt-3 text-center fw-semibold">
-          <i class="bi bi-lock-fill me-2"></i> Su cuenta está bloqueada
-        </div>
-        <div th:if="${param.confirmado}" class="alert alert-info rounded-3 shadow-sm mt-3 text-center fw-semibold">
-          <i class="bi bi-envelope-fill me-2"></i> Confirme su correo electrónico
-        </div>
+<!--        <div th:if="${param.error}" class="alert alert-danger rounded-3 shadow-sm mt-3 text-center fw-semibold">-->
+<!--          <i class="bi bi-exclamation-triangle-fill me-2"></i> Credenciales incorrectas-->
+<!--        </div>-->
+<!--        <div th:if="${param.blocked}" class="alert alert-warning rounded-3 shadow-sm mt-3 text-center fw-semibold">-->
+<!--          <i class="bi bi-lock-fill me-2"></i> Su cuenta está bloqueada-->
+<!--        </div>-->
+<!--        <div th:if="${param.confirmado}" class="alert alert-info rounded-3 shadow-sm mt-3 text-center fw-semibold">-->
+<!--          <i class="bi bi-envelope-fill me-2"></i> Confirme su correo electrónico-->
+<!--        </div>-->
 
       </div>
     </div>
@@ -209,5 +264,6 @@
 </div>
 
 <script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/alertas.js}" defer></script>
 </body>
 </html>

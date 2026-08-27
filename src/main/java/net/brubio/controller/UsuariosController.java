@@ -128,8 +128,8 @@ public class UsuariosController {
 		if(usu.getEmail() != null) {
 			String token = UUID.randomUUID().toString();
 			usu.setToken(token);
-			String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
-			//String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
+//			String confirmacionLink = "https://proyempleos4.onrender.com/confirmar-registro?token=" + token;
+			String confirmacionLink = "http://localhost:8080/confirmar-registro?token=" + token;
 			usu.setConfirmado(false);
 			System.err.println("cammpo confirmado = " + usu);
 
@@ -145,7 +145,7 @@ public class UsuariosController {
 			serviceUsuarios.editarCorreo(usu);
 			SecurityContextHolder.clearContext();
 		}
-		model.addAttribute("msg","Se cambio el correo, ingrese nuevamente !!!");
+		model.addAttribute("msg","Se envió un mensaje de confirmación al nuevo correo !!!");
 		return "formLogin";
 	}
 

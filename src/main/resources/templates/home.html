@@ -144,6 +144,21 @@
 </head>
 
 <body>
+
+<!-- ALERTA DE REGISTRO -->
+<div th:if="${msg}" class="toast-alert">
+	<div class="toast-icon">
+		<i class="bi bi-check-lg"></i>
+	</div>
+	<div class="toast-content">
+		<strong>¡Operación exitosa!</strong>
+		<span th:text="${msg}"></span>
+	</div>
+	<button type="button" class="toast-close" onclick="cerrarAlerta()">
+		<i class="bi bi-x"></i>
+	</button>
+</div>
+
 <header th:insert="~{fragments/menu :: menu-principal}">
 </header>
 <main>
@@ -351,5 +366,6 @@
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script src="/js/alertas.js"></script>
 </body>
 </html>

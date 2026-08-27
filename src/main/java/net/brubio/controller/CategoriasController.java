@@ -1,8 +1,10 @@
 package net.brubio.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -50,12 +52,21 @@ public class CategoriasController {
 
 	//@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@PostMapping("/save")
-	public String guardar(Categoria categoria, BindingResult result, RedirectAttributes attributes) {
+	public String guardar(@Valid Categoria categoria, BindingResult result, RedirectAttributes attributes, Model model) {
 		
 		if (result.hasErrors()) {
-			for (ObjectError error : result.getAllErrors()) {
-				System.out.println("Ocurrio un error: " + error.getDefaultMessage());
+
+			List<String> errores = new ArrayList<>();
+			for(ObjectError error : result.getAllErrors()){
+				errores.add(error.getDefaultMessage());
+				System.out.println(error.getDefaultMessage());
 			}
+			model.addAttribute("ListaErrores", errores);
+
+//			for (ObjectError error : result.getAllErrors()) {
+//				System.out.println("Ocurrió un Error: " + error.getDefaultMessage());
+//				model.addAttribute("toastError", error.getDefaultMessage());
+//			}
 			return "categorias/formCategoria";
 		}
 		
